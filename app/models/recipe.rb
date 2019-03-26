@@ -6,12 +6,6 @@ class Recipe < ActiveRecord::Base
 
 end
 
-response = Unirest.get "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/479101/information",
-  headers:{
-    "X-RapidAPI-Key" => "XXXXXXXXXXXXXXXXXXXX"
-  }
-
-
 
 
   def self.create_from_data(data)
