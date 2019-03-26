@@ -1,11 +1,13 @@
 require 'bundler'
-# require_relative '../app/models/game.rb'
-# require_relative '../app/models/round.rb'
-# require_relative '../app/models/player.rb'
-Bundler.require
-
 require 'active_record'
 require 'rake'
+require 'require_all'
+
+Bundler.require
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/development.db')
-#require_all '../lib'
+ActiveRecord::Base.logger = nil
+
+require_all 'app'
+
+SINATRA_ACTIVESUPPORT_WARNING=false
