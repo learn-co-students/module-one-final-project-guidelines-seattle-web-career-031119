@@ -4,6 +4,16 @@ class Recipe < ActiveRecord::Base
   has_many :ingredients
   has_many :users, through: :meals
 
+  def walk_through_steps
+    steps.each_with_index do |step, index|
+      puts "\n\n---------STEP #{index+1}----------------"
+      puts "Takes #{step.length}" if !step.length.nil?
+      puts step.instructions
+      puts "\n\nPress any key to view next step."
+      gets
+    end
+  end
+
   def self.create_from_data(data)
     recipe = self.create({
       vegetarian: data["vegetarian"],

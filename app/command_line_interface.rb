@@ -31,3 +31,7 @@ def get_user_meal_request
   puts "Please enter a meal name:"
   gets.chomp.downcase
 end
+
+def congratulate
+  puts "Great work!  Hope it tastes as good as you look. ;)"
+end

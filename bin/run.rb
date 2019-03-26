@@ -22,6 +22,9 @@ loop do
   when "cook"
     user.print_recipe_options
     meal_choice = get_user_meal_choice
+    recipe = user.get_recipe_by_choice(meal_choice)
+    recipe.walk_through_steps
+    congratulate
   when "exit"
     break
   end

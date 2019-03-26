@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
     puts "=================================="
   end
 
+  def get_recipe_by_choice(choice)
+    recipes[choice]
+  end
+
 end
