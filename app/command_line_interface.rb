@@ -24,7 +24,7 @@ def get_user_selection
 end
 
 def get_user_meal_choice
-  choice = gets.chomp.to_i-1
+  gets.chomp.to_i-1
 end
 
 def get_user_meal_request
@@ -34,6 +34,11 @@ end
 
 def print_selection_title(recipe)
   puts "Added #{recipe.title} to your meals!\n\n"
+end
+
+def meal_action
+  puts "\n\nPlease enter a meal action to perform:\n[EXAMPLE: 'cook 1', 'remove 2', 'shoplist 3']\nType 'exit' to return to top menu."
+  gets.chomp
 end
 
 def congratulate

@@ -21,13 +21,22 @@ loop do
     Meal.create(user_id: user.id, recipe_id: recipe.id)
     print_selection_title(recipe)
   when "cook"
-    user.print_recipe_options
+    user.print_active_meals
     meal_choice = get_user_meal_choice
     recipe = user.get_recipe_by_choice(meal_choice)
     recipe.walk_through_steps
     congratulate
+    user.set_cooked(meal_choice)
+  when "meals"
+    loop do
+      user.print_meals
+      action = meal_action
+      if action == "exit"
+        break
+      end
+      user.perform(action)
+    end
   when "exit"
     break
   end
-  binding.pry
 end
