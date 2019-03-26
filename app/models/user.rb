@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
       puts "#{index+1}. #{review.restaurant.name}"
       puts "Rating: #{review.rating}"
       puts "Review: #{review.message}"
-      puts 
     }
   end
 
