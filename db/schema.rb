@@ -10,9 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326172358) do
+ActiveRecord::Schema.define(version: 20190326175114) do
 
   create_table "games", force: :cascade do |t|
+  end
+
+  create_table "lyrics", force: :cascade do |t|
+    t.string "artist_name"
+    t.string "most_lyric"
   end
 
   create_table "players", force: :cascade do |t|
