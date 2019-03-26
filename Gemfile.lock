@@ -53,6 +53,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  json
   pry
   require_all
   sinatra-activerecord
