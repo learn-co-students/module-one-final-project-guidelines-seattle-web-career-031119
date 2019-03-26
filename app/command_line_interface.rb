@@ -1,6 +1,6 @@
-OPTIONS=["Find a Recipe","Cook a Recipe", "My Shopping List", "My Saved Meals"]
+OPTIONS=["Find a Recipe","Cook a Recipe", "My Shopping List", "My Saved Meals", "Exit"]
 
-ABBREV_OPTIONS = ["find", "cook", "list", "meals"]
+ABBREV_OPTIONS = ["find", "cook", "list", "meals", "exit"]
 
 def welcome
   "Welcome to MealWorm!"
@@ -23,7 +23,11 @@ def get_user_selection
   choice = ABBREV_OPTIONS[gets.chomp.to_i-1]
 end
 
+def get_user_meal_choice
+  choice = gets.chomp.to_i-1
+end
+
 def get_user_meal_request
-  puts "Please enter a meal name"
+  puts "Please enter a meal name:"
   gets.chomp.downcase
 end

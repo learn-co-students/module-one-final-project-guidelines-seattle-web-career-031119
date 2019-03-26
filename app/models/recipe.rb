@@ -13,7 +13,7 @@ class Recipe < ActiveRecord::Base
       readyInMinutes: data["readyInMinutes"],
       title: data["title"],
       external_id: data["id"],
-      source_url: data["sourceURL"],
+      source_url: data["sourceUrl"],
       credit_text: data["creditText"]
     })
 
