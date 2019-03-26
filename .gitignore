@@ -10,4 +10,7 @@ tmp
 *.log
 *.swp
 
+demofile.rb
+
 db/*.db
+db/schema.rb
