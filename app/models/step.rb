@@ -5,7 +5,7 @@ class Step < ActiveRecord::Base
     step = self.create({
         recipe_id: recipe_id,
         number: data["number"],
-        step: data["step"]
+        instructions: data["step"]
       })
       if !data["length"].nil?
         step.update(length: "#{data["length"]["number"]} #{data["length"]["unit"]}.")
