@@ -32,6 +32,10 @@ def get_user_meal_request
   gets.chomp.downcase
 end
 
+def print_selection_title(recipe)
+  puts "Added #{recipe.title} to your meals!\n\n"
+end
+
 def congratulate
   puts "Great work!  Hope it tastes as good as you look. ;)"
 end
