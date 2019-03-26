@@ -23,20 +23,41 @@ classes:
 
 Start the app
 
+Welcome
+
 1. Starting options:
   a. Start new user
     Get name
   b. Get list of saved users
     List names and prompt to enter yours
 
-2. Input location
+2. Choice:
+  a. See own reviews
+  b. Search for restaurant
+
+B1. Input location
       By city
-      By coords
+      By Neighborhood
+    Matches text input to location
     Returns list of cuisines
 
-3. Input cuisine by name
+B2. Input cuisine by name
 
-4. Get back list of restaurants, sorted by review average DESC
+B3. Get back list of restaurants, sorted by review average DESC
+
+B4. Choose:
+  a. Review restaurant from B3 list
+    Choose by number
+    Enter a rating 1-5
+    Enter message
+    Review.new
+    Choice:
+      1. New review from B3 list
+      2. Back to step 2
+  b. New search
+    go to B1
+
+
 
 
   Find restaurants
