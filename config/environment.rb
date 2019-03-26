@@ -2,7 +2,6 @@ require 'bundler'
 require 'active_record'
 require 'rake'
 require 'require_all'
-require 'rest-client'
 
 Bundler.require
 
