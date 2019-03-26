@@ -18,35 +18,36 @@ class Api
     {artist: "Boyz II Men", title: "End of the Road"}
   ]
 
-  def self.add_urls
+  def self.add_most_lyric_to_song_info
     @songs_array.each do |song_info|
-      song_info[:url]="https://api.lyrics.ovh/v1/#{song_info[:artist].gsub(' ', '%20')}/#{song_info[:title].gsub(' ', '%20')}"
+      url ="https://api.lyrics.ovh/v1/#{song_info[:artist].gsub(' ', '%20')}/#{song_info[:title].gsub(' ', '%20')}"
+      lyrics = RestClient.get(url)
+      lines = JSON.parse(lyrics)["lyrics"].split("\n").reject!(&:empty?)
+      freq = lines.inject(Hash.new(0)) {|h,v| h[v] += 1; h}
+      song_info[:most_lyric] = lines.max_by {|v| freq[v]}
     end
   end
 
-  def self.get_lyric(url)
-    lyrics = RestClient.get(url)
-    lines = JSON.parse(lyrics)["lyrics"].split("\n").reject!(&:empty?)
-    freq = lines.inject(Hash.new(0)) {|h,v| h[v] += 1; h}
-    lines.max_by {|v| freq[v]}
-  end
 
-  def self.find_or_create_lyric(i)
-
+  def self.find_or_create_lyric(song_info)
+    lyric_exists = Lyric.find_by(most_lyric: song_info[:most_lyric])
+    if !lyric_exists
+      Lyric.create(most_lyric: song_info[:most_lyric], artist_name: song_info[:artist])
+    end
   end
 
   def self.gather_lyrics
-    @songs_array.each do |i|
-      Lyric.create(most_lyric: get_lyric(i[:url]), artist_name: i[:artist])
+    @songs_array.each do |song_info|
+      self.find_or_create_lyric(song_info)
     end
   end
 
 def self.populate_lyrics_table
-  self.add_urls
+  self.add_most_lyric_to_song_info
   self.gather_lyrics
 end
 
-  binding.pry
+binding.pry
 
 
 end
