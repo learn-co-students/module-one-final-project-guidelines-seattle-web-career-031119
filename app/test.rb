@@ -25,7 +25,15 @@ def location_suggestions(locations)
   suggestions_menu
 end
 
-def pretty_location_menu(suggestions_menu)
+def pretty_location_menu(suggestions_menu, locations)
+  loc_menu_output = Hash.new
+    menu_number = 1
+  suggestions_menu.map do |itemno|
+    puts "#{menu_number}. #{locations[itemno]['title']}"
+    loc_menu_output[menu_number] = locations[itemno]['title']
+    menu_number += 1
+  end
+  loc_menu_output
 end
 
 def search_area_for_cuisines(entity_id, entity_type)
