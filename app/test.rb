@@ -8,8 +8,7 @@ end
 
 def match_input_to_location(location)
   response_string = RestClient::Request.execute(method: :get,
-                                    url: "https://developers.zomato.com/api/v2.1/locations?"
-                                       + "query=#{location}&count=10",
+                                    url: "https://developers.zomato.com/api/v2.1/locations?query=#{location}&count=10",
                                 headers:
                                   {"user-key": api_key},
                                 timeout: 10)

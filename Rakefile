@@ -6,3 +6,11 @@ task :console do
   ActiveRecord::Base.logger = Logger.new(STDOUT)
   Pry.start
 end
+
+desc 'starts a console with queries'
+task :query do
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  locations = match_input_to_location("Fremont")
+  suggestions_menu = location_suggestions(locations)
+  binding.pry
+end
