@@ -4,14 +4,13 @@ class User < ActiveRecord::Base
   has_many :restaurants, through: :reviews
 
 
-#mera's to do def pretty_reviews
 
   def pretty_reviews
     puts "Your Reviews:"
     self.reviews.each_with_index {|review, index|
       puts "#{index+1}. #{review.restaurant.name}"
-      puts "rating: #{review.rating}"
-      puts "review: #{review.message}"
+      puts "Rating: #{review.rating}"
+      puts "Review: #{review.message}"
     }
   end
 
