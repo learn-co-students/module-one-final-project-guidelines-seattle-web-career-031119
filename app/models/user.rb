@@ -63,4 +63,15 @@ class User < ActiveRecord::Base
     get_active_meals[choice].update(active: false)
   end
 
+  def print_ingredient_list
+    puts "=========SHOPPING LIST============"
+    recipes.each do |recipe|
+        name = Ingredient.where(recipe_id: recipe.id).pluck(:name)
+        amount = Ingredient.where(recipe_id: recipe.id).pluck(:amount)
+        unit = Ingredient.where(recipe_id: recipe.id).pluck(:unit)
+
+        puts "#{amount} #{unit} #{name}"
+    end
+  end
+
 end
