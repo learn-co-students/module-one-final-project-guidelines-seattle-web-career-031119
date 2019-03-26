@@ -5,3 +5,4 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/food_p
 require_all 'lib'
 require_all 'app'
 require_relative "../demofile.rb"
+require_relative "../api_key.rb"
