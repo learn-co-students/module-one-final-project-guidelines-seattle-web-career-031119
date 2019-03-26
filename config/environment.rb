@@ -9,5 +9,6 @@ ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/develo
 ActiveRecord::Base.logger = nil
 
 require_all 'app'
+require_all 'lib'
 
 SINATRA_ACTIVESUPPORT_WARNING=false
