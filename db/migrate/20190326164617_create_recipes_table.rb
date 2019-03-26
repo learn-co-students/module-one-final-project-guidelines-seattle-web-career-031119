@@ -1,7 +1,7 @@
 class CreateRecipesTable < ActiveRecord::Migration[5.0]
   def change
     create_table :recipes do |t|
-      t.boolean :vegitarian
+      t.boolean :vegetarian
       t.boolean :vegan
       t.boolean :gluten_free
       t.boolean :dairy_free
