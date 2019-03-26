@@ -2,6 +2,7 @@
 
 # https://developers.zomato.com/api/v2.1/cities?q=Seattle%2C%20WA&lat=47.609845&lon=-122.335081&city_ids=279&count=1
 
+
 def api_key
   "4e444090a6cc15f3ea6a678736291ab3"
 end
