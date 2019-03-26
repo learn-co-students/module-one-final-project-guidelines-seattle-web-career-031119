@@ -70,7 +70,7 @@ class User < ActiveRecord::Base
         amount = Ingredient.where(recipe_id: recipe.id).pluck(:amount)
         unit = Ingredient.where(recipe_id: recipe.id).pluck(:unit)
 
-        puts "#{amount} #{unit} #{name}"
+        puts "#{amount} #{unit}:  #{name}"
     end
   end
 
