@@ -10,5 +10,7 @@ tmp
 *.log
 *.swp
 
+api_key.rb
+
 db/*.db
 db/schema.rb
