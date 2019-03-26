@@ -7,6 +7,7 @@ require 'rake'
 require 'sqlite3'
 
 require_relative '../app/test.rb'
+require_relative '../app/jon.rb'
 
 Bundler.require
 
