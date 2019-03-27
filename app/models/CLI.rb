@@ -1,6 +1,7 @@
 class CLI
 
   @@user = nil
+  @@rest_array = nil
 
   ## ------------------------------------
   ## MENU HELPER METHODS
@@ -65,6 +66,7 @@ class CLI
         elsif condition == "number"
           puts "Only numbers please!"
         end
+        active = 0
         menu_get_input(prompt, condition)
       end
     end

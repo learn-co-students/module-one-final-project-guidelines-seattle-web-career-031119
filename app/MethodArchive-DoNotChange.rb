@@ -253,6 +253,11 @@
 
 CLI -
 
+ABE
+methods:
+self.get_restaurants
+new functions
+
 - at end of get_restaurants, give options:
   - pick a restaurant
   - new search
@@ -269,6 +274,7 @@ CLI -
     - new search
     - review
 
+MERA
 - review a restaurant:
   get rating
   get message
@@ -298,3 +304,6 @@ Pick A Restaurant:
 
 Reviews Menu:
   - update / delete / new search
+
+TO DO:
+- rename files to lowercase
