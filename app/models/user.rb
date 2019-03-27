@@ -63,4 +63,46 @@ class User < ActiveRecord::Base
     get_active_meals[choice].update(active: false)
   end
 
+  def get_ingredient_list
+    ingredient_array = []
+    recipes.each do |recipe|
+      ingredient_array << recipe.ingredients
+    end
+    ingredient_array_flatten = ingredient_array.flatten
+    puts "========Ingredient List=========="
+    ingredient_array_flatten.each do |ingredient|
+      puts "#{ingredient.amount} #{ingredient.unit} - #{ingredient.name.upcase}"
+    end
+    puts "==============================="
+    puts "=======HAPPY SHOPPING!========="
+    puts "==============================="
+
+  end
+
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      #)))

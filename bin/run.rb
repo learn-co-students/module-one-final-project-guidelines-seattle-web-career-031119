@@ -27,6 +27,8 @@ loop do
     recipe.walk_through_steps
     congratulate
     user.set_cooked(meal_choice)
+  when "list"
+    user.get_ingredient_list
   when "meals"
     loop do
       user.print_meals
