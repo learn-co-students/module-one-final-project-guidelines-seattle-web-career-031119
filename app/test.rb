@@ -45,7 +45,7 @@ def search_area_for_restaurants(location_hash)
   # gets multiple pages of results and stores in restaurants
   1.times do |page|
     response_string = RestClient::Request.execute(method: :get,
-                                      url: "https://developers\.zomato\.com/api/v2\.1/search?entity_id=#{location_hash[entity_id]}&entity_type=#{location_hash[entity_type]}&start=#{(page-1)*20}",
+                                      url: "https://developers\.zomato\.com/api/v2\.1/search?entity_id=#{location_hash["entity_id"]}&entity_type=#{location_hash["entity_type"]}&start=#{(page-1)*20}",
                                   headers:
                                     {"user-key": api_key},
                                   timeout: 10)
