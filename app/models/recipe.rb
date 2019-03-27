@@ -11,8 +11,8 @@ class Recipe < ActiveRecord::Base
       puts "\n\n\n\n\n"
       puts "Takes #{step.length}" if !step.length.nil?
       puts step.instructions
-      puts index != steps.count-1 ? "\n\nPress any key to view next step." : "You're done!"
-      gets
+      puts index != steps.count-1 ? "\n\nPress any key to view next step." : "\n\nYou're done!"
+      gets if index != steps.count-1
     end
   end
 

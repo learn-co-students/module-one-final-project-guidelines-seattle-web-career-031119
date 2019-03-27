@@ -13,7 +13,11 @@ class ApiCaller
     "X-RapidAPI-Key" => get_api_key
   }
     results = response.body["results"]
-    get_recipe_by_id(results[rand(0...results.count)]["id"])
+    if results.count > 0
+      get_recipe_by_id(results[rand(0...results.count)]["id"])
+    else
+      nil
+    end
   end
 
 end
