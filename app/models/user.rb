@@ -76,17 +76,16 @@ class User < ActiveRecord::Base
     recipes.each do |recipe|
       ingredient_array << recipe.ingredients
     end
-    flattened = ingredient_array.flatten
-    flattened_ordered = flattened.group_by{|ing| ing.aisle}.values.flatten
-    puts "========Ingredient List=========="
-    flattened_ordered.each do |ingredient|
-      puts "#{ingredient.amount} #{ingredient.unit} - #{ingredient.name.upcase}"
-      puts "Aisle: #{ingredient.aisle}"
-      puts "==============================="
+    flattened = ingredient_array.flatten.group_by{|ing| ing.aisle}.sort_by{|key,val| key}
+    flattened.each do |aisle, ingredients|
+      puts "\n\n------- #{aisle} -------\n\n"
+      ingredients.each do |ingredients|
+        puts "#{ingredients.amount} #{ingredients.unit} - #{ingredients.name.upcase}"
+      end
     end
-    puts "=======HAPPY SHOPPING!========="
-    puts "==============================="
   end
+
+  #temp = Hash[ temp.sort_by { |key, val| key } ]
 
 
 end
