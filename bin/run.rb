@@ -28,7 +28,7 @@ loop do
     congratulate
     user.set_cooked(meal_choice)
   when "list"
-    user.print_ingredient_list
+    user.get_ingredient_list
   when "meals"
     loop do
       user.print_meals
