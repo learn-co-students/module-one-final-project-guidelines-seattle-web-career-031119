@@ -47,9 +47,9 @@ def congratulate
 end
 
 def happy_shopping
-  puts sepparator_line
+  puts separator_line
   puts "HAPPY SHOPPING! Grab some Oreos® just for fun!"
-  puts sepparator_line
+  puts separator_line
 end
 
 #-------------USER INPUT PROMPTS------------------#

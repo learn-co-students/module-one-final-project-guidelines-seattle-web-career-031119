@@ -83,7 +83,6 @@ class User < ActiveRecord::Base
   end
 
   def get_ingredient_list
-    binding.pry
     ingredient_array = []
     recipes.each do |recipe|
       ingredient_array << recipe.ingredients
