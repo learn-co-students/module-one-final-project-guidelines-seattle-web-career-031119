@@ -2,7 +2,7 @@ require 'bundler'
 require 'pry'
 require 'json'
 #require 'unirest'
-require 'nokogiri'
+#require 'nokogiri'
 require 'rake'
 require 'sqlite3'
 

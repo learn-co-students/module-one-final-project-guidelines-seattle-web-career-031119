@@ -2,6 +2,8 @@ class CLI
 
   @@user = nil
 
+  @@reviews_hash = nil
+
   ## ------------------------------------
   ## MENU HELPER METHODS
   ## ------------------------------------
@@ -164,8 +166,118 @@ class CLI
     self.make_review(chosen_restaurant)
   end
 
-  def self.make_review(chosen_restaurant)
-    ## Needs to be written
+
+
+
+## REVIEWS METHODS ===========================================================================
+
+## HELPER METHODS --------------------------------------------------------------------------
+
+  def self.print_single_review(review_obj)
+    ## prints out the passed review
+    puts "Your new review: #{review_obj.restaurant.name}"
+    puts "\tRating: #{review_obj.rating}"
+    puts "\tReview: #{review_obj.message}"
+  end
+
+  def self.make_review_hash
+    #create a hash of all reviews with numerical keys
+    @@reviews_hash = User.all[2].reviews.each.with_index(1) {|review, index|
+      reviews_hash[index] = [review.restaurant.name, review.rating, review.message]
+    }
+  end
+
+  def self.get_rating
+    ## prompt user for resto's rating
+    puts "What would you rate this restaurant? (1-5)"
+    STDIN.gets.strip.to_i
+  end
+
+  def self.get_message
+    ## prompt user for review message
+    puts "Please write a brief review"
+    STDIN.gets.strip
+  end
+
+  def self.find_review_from_user_input(user_input)
+    # initialize a blank name
+    restaurant_name = ""
+    # iterate over pretty hash and find resto name from index number
+    @@reviews_hash.each {|key, value|
+      if key == user_input
+        restaurant_name = value[0]
+      end
+    }
+    #find review by resto name
+    @@user.reviews.find {|review|
+      review.restaurant == restaurant_name
+    }
+  end
+
+## CRUD METHODS -----------------------------------------------------------------------
+
+  def self.create_review(chosen_restaurant)
+    ## chosen_restaurant = string of restaurant name!!!!
+    ##-----------------------------------------------
+    rating = self.get_rating
+    message = self.get_message
+    ## make restaurant object and review object and save to our tables
+    restaurant = Restaurant.find_or_create_by(name: chosen_restaurant)
+    review = Review.create(user: User.all[2], restaurant: restaurant, rating: rating, message: message)
+    ## show the user their new review
+    self.print_single_review(review)
+    ## ask user where they want to go next - add more options?
+    prompt = "Type <search> to start a new restaurant search, <reviews> to view all of your reviews, ... "
+    ##name of menu method
+    main_menu(prompt)
+  end
+
+  def self.read_reviews
+    ## make sure reviews_hash is up to date
+    self.make_review_hash
+    ## iterate over reviews hash and print them to console
+    @@reviews_hash.each {|key, value|
+      puts "#{key}: #{value[0]} \n\t Rating: #{value[1]} \n\t Review: #{value[2]}"
+      puts "-------------------------------------"
+    }
+    ## ask user what they want to do next - add more options?
+    prompt = "Type <edit> to edit one of your reviews, <delete> to delete a review, or <search> to start a new restaurant search..."
+    main_menu(prompt)
+  end
+
+  def self.update_review
+    prompt =  "Type number of review you wish to edit"
+    review_num = STDIN.gets.strip
+    # get the right review from the index the user gave
+    review = self.find_review_from_user_input(review_num)
+    ## get new rating and message
+    rating = self.get_rating
+    message = self.get_message
+    ## update those fields in the database
+    new_review = review_choice.update(rating: rating, message: message)
+    ##print out new version of review
+    self.print_single_review(new_review)
+    ## ask user what they want to do next - add more options?
+    prompt = "Type <reviews> to see all of your reviews or <search> to start a new restaurant search."
+    main_menu(prompt)
+  end
+
+  def self.delete_review
+    prompt =  "Type number of review you wish to delete"
+    review_num = STDIN.gets.strip
+    # get the right review from the index the user gave
+    review = self.find_review_from_user_input(review_num)
+    ## let the user know what they deleted
+    puts "You have deleted the following review."
+    self.print_single_review(review)
+    ## delete it
+    review.delete
+    ## ask user what they want to do next - add more options?
+    prompt = "Type <reviews> to see all of your reviews or <search> to start a new restaurant search."
+    main_menu(prompt)
   end
 
 end
+
+
+### DON'T FORGET TO CHANGE USER.ALL TO @@USER!!!!!!!!

@@ -1,1 +1,19 @@
-curl -X GET --header "Accept: application/json" --header "user-key: 4e444090a6cc15f3ea6a678736291ab3" "https://developers.zomato.com/api/v2.1/cuisines?lat=47.72%2C%20-122.36"
+def make_review(chosen_restaurant)
+  ## chosen_restaurant = string of restaurant name
+  ##-----------------------------------------------
+  ## prompt user for resto's rating
+  puts "How many stars would you give this restaurant? (1-5)"
+  ## extra : control input format?
+  star_rating = get.strip.to_i
+  ## prompt user for review message
+  puts "Please write a brief review"
+  review_message = get.strip
+
+  restaurant = Restaurant.create(name: chosen_restaurant)
+  review = Review.create(user: @@user, restaurant: restaurant, rating: star_rating, message: review_message)
+
+
+end
+
+
+puts make_review("the thai place")
