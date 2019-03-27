@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
         Title: meal.recipe.title,
         Status: meal.active == false ? "Cooked" : "Awaiting Cooking",
         "On Shopping List?": meal.shopping == true ? "Yes" : "No",
-        Rating: meal.rating.to_stars
+        Rating: meal.rating,
         Notes: !meal.notes.nil? ? meal.notes : "None."
 
       }
