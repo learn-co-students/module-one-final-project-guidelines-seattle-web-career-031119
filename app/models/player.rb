@@ -14,4 +14,16 @@ class Player < ActiveRecord::Base
       puts
     end
   end
+
+  def get_player_scores
+    games = self.games.uniq
+    games.collect do |game|
+      game.get_game_score
+    end
+  end
+
+  def get_players_avg_score
+    total = self.get_player_scores.inject(0) {|score, sum| sum + score}
+    (total.to_f / self.games.uniq.count).round(2)
+  end
 end
