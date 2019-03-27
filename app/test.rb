@@ -67,6 +67,10 @@ def most_occuring_cuisines(restaurants)
   cuis_hash.sort { |l, r| r[1]<=>l[1] }.to_h
 end
 
+def get_restaurants_from_cuisine_selection(cuisine_selection)
+
+end
+
 
 # OLD METHODS GRAVEYARD
 #

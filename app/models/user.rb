@@ -3,8 +3,6 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_many :restaurants, through: :reviews
 
-
-
   def pretty_reviews
     puts "Your Reviews:"
     self.reviews.each_with_index {|review, index|
@@ -13,7 +11,6 @@ class User < ActiveRecord::Base
       puts "Review: #{review.message}"
     }
   end
-
 
   def reviewed_restaurants
     puts "You have reviewed the following restaurants:"
@@ -33,7 +30,5 @@ class User < ActiveRecord::Base
     puts "Your rating: #{x.rating}"
     puts "Your review: #{x.message}"
   end
-
-
 
 end
