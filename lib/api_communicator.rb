@@ -15,10 +15,28 @@ class Api
     {artist: "Ricky Martin", title: "Livin La Vida Loca"},
     {artist: "REM", title: "Losing My Religion"},
     {artist: "Oasis", title: "Wonderwall"},
-    {artist: "Boyz II Men", title: "End of the Road"}
+    {artist: "Boyz II Men", title: "End of the Road"},
+    {artist: "Alanis Morissette", title: "Ironic"},
+    {artist: "Metallica", title: "Enter Sandman"},
+    {artist: "Counting Crows", title: "Mr. Jones"},
+    {artist: "Radiohead", title: "Creep"},
+    {artist: "Vanilla Ice", title: "Ice Ice Baby"},
+    {artist: "TLC", title: "No Scrubs"},
+    {artist: "Kris Kross", title: "Jump"},
+    {artist: "Green Day", title: "Good Riddance (Time of Your Life)"},
+    {artist: "Sir Mix-a-Lot", title: "Baby Got Back"},
+    {artist: "Backstreet Boys", title: "I Want It That Way"},
+    {artist: "Montell Jordan", title: "This Is How We Do It"},
+    {artist: "Ace of Base", title: "The Sign"},
+    {artist: "The Cranberries", title: "Linger"},
+    {artist: "Christina Aguilera", title: "Genie in a Bottle"},
+    {artist: "Smash Mouth", title: "All Star"},
+    {artist: "Will Smith", title: "Gettin' Jiggy Wit It"},
+    {artist: "Semisonic", title: "Closing Time"},
+    {artist: "NSYNC", title: "Tearin Up My Heart"}
   ]
 
-  def self.add_most_lyric_to_song_info
+  def self.add_most_lyric_and_title_to_song_info
     @songs_array.each do |song_info|
       url ="https://api.lyrics.ovh/v1/#{song_info[:artist].gsub(' ', '%20')}/#{song_info[:title].gsub(' ', '%20')}"
       lyrics = RestClient.get(url)
@@ -30,9 +48,9 @@ class Api
 
 
   def self.find_or_create_lyric(song_info)
-    lyric_exists = Lyric.find_by(most_lyric: song_info[:most_lyric])
-    if !lyric_exists
-      Lyric.create(most_lyric: song_info[:most_lyric], artist_name: song_info[:artist])
+    title_exists = Lyric.find_by(song_title: song_info[:title])
+    if !title_exists
+      Lyric.create(most_lyric: song_info[:most_lyric], artist_name: song_info[:artist], song_title: song_info[:title])
     end
   end
 
