@@ -16,6 +16,8 @@ def match_input_to_location(location)
 end
 
 def location_suggestions(locations)
+  # Filters out non-US locations and returns an array of indexes to the
+  # locations from the match_input_to_location hash
   suggestions_menu = []
   locations.each_with_index do |loc, i|
     if loc["country_id"] == 216
@@ -26,6 +28,7 @@ def location_suggestions(locations)
 end
 
 def pretty_location_menu(suggestions_menu, locations)
+  # Takes the suggestions menu index
   loc_menu_output = Hash.new
   menu_number = 1
   suggestions_menu.map do |itemno|
@@ -36,13 +39,13 @@ def pretty_location_menu(suggestions_menu, locations)
   loc_menu_output
 end
 
-def search_area_for_cuisines(entity_id, entity_type)
+def search_area_for_restaurants(location_hash)
   # City search for cuisines
   restaurants = []
   # gets multiple pages of results and stores in restaurants
   1.times do |page|
     response_string = RestClient::Request.execute(method: :get,
-                                      url: "https://developers\.zomato\.com/api/v2\.1/search?entity_id=#{entity_id}&entity_type=#{entity_type}&start=#{(page-1)*20}",
+                                      url: "https://developers\.zomato\.com/api/v2\.1/search?entity_id=#{location_hash[entity_id]}&entity_type=#{location_hash[entity_type]}&start=#{(page-1)*20}",
                                   headers:
                                     {"user-key": api_key},
                                   timeout: 10)
@@ -52,7 +55,7 @@ def search_area_for_cuisines(entity_id, entity_type)
   restaurants
 end
 
-def cuisines(restaurants)
+def most_occuring_cuisines(restaurants)
   # Take in a hash of restaurants and make a hash of cuisines (keys) and frequency (values)
   cuis_hash = Hash.new(0)
   restaurants.map do |res|
