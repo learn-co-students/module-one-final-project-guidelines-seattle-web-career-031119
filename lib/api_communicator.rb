@@ -5,7 +5,7 @@ class Api
 
   @songs_array = [
     {artist: "Nirvana", title: "Smells Like Teen Spirit"},
-    {artist: "Britney Spears", title: "Baby One More Time"},
+    {artist: "Britney Spears", title: "...Baby One More Time"},
     {artist: "Sinead O'Connor", title: "Nothing Compares 2 U"},
     {artist: "Blackstreet", title: "No Diggity"},
     {artist: "No Doubt", title: "Dont Speak"},
@@ -47,22 +47,24 @@ def self.populate_lyrics_table
   self.gather_lyrics
 end
 
-binding.pry
+# binding.pry
 
 
 end
 
+#=============Random 90s Phrases==============
+
+# Correct:
+# ["You are all that and a bag of chips!", "Boo ya!", "You da bomb!", "Great job home skillet!", "Nice, dude!", "Slammin!"]
+#
+# Incorrect:
+# ["As if!", "Oh snap!", "Talk to the hand!", "That's right! ...NOT!", "You were hella close...", "Whatever!"]
 
 
-# urls.collect do |url|
-#   url.get_lyric
-# end
 
 
 
-# def lyric_getter(artist, title)
-#   "https://api.lyrics.ovh/v1/#{artist.gsub(' ','%20')}/#{title.gsub(' ','%20')}".get_lyric
-# end
+
 
 
 # binding.pry

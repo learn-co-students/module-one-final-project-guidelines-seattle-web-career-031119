@@ -56,6 +56,7 @@ class Cli
     puts
   end
 
+<<<<<<< Updated upstream
   def self.display_options(lyric_i)
     answer_options_array = self.randomize_answers(lyric_i)
     (0..3).each {|i| puts answer_options_array[i]}
@@ -65,6 +66,11 @@ class Cli
   def self.randomize_answers(lyric_i)
     answer_options_array =['a. ', 'b. ', 'c. ' , 'd. ']
     answer_options_remaining = [0, 1, 2, 3]
+=======
+binding.pry
+
+end
+>>>>>>> Stashed changes
 
     while answer_options_remaining.count > 1
       this_index = answer_options_remaining.sample
