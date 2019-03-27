@@ -84,13 +84,13 @@ class User < ActiveRecord::Base
 
   def get_ingredient_list
     ingredient_array = []
-    recipes.each do |recipe|
+    get_shoplist_recipes.each do |recipe|
       ingredient_array << recipe.ingredients
     end
     flattened = ingredient_array.flatten.group_by{|ingredients| ingredients.aisle}.sort_by{|key,val| key}
     flattened.each do |aisle, ingredients|
       table = []
-      puts "\n\n------- AISLE: #{aisle} -------\n\n"
+      puts "\n\n------- AISLE: #{aisle} -------"
       ingredients.each do |ingredients|
         table << {
           Amount: "#{ingredients.amount} #{ingredients.unit}",
@@ -100,6 +100,8 @@ class User < ActiveRecord::Base
       end
       Formatador.display_table(table)
     end
+    puts "Press Enter to return to the main menu"
+    gets
   end
 
 end
