@@ -68,41 +68,17 @@ class User < ActiveRecord::Base
     recipes.each do |recipe|
       ingredient_array << recipe.ingredients
     end
-    ingredient_array_flatten = ingredient_array.flatten
+    flattened = ingredient_array.flatten
+    flattened_ordered = flattened.group_by{|ing| ing.aisle}.values.flatten
     puts "========Ingredient List=========="
-    ingredient_array_flatten.each do |ingredient|
+    flattened_ordered.each do |ingredient|
       puts "#{ingredient.amount} #{ingredient.unit} - #{ingredient.name.upcase}"
+      puts "Aisle: #{ingredient.aisle}"
+      puts "==============================="
     end
-    puts "==============================="
     puts "=======HAPPY SHOPPING!========="
     puts "==============================="
-
   end
 
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      #)))
