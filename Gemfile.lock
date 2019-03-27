@@ -31,6 +31,7 @@ GEM
     minitest (5.11.3)
     mustermann (1.0.3)
     netrc (0.11.0)
+    paint (2.1.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -80,6 +81,7 @@ DEPENDENCIES
   activerecord (~> 5.0.2)
   database_cleaner
   json
+  paint
   pry
   rake
   require_all

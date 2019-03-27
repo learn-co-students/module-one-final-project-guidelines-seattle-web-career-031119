@@ -56,6 +56,7 @@ class Cli
     puts
   end
 
+
   def self.start_a_game(player)
     game = Game.create
     game.start_game(player)
