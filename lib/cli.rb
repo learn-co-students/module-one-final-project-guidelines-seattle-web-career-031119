@@ -142,13 +142,11 @@ class Cli
   def self.randomize_answers(lyric_i)
     answer_options_array =['a. ', 'b. ', 'c. ' , 'd. ']
     answer_options_remaining = [0, 1, 2, 3]
-
     while answer_options_remaining.count > 1
       this_index = answer_options_remaining.sample
       answer_options_array[this_index] << "#{Lyric.find(self.get_random_artist(@remaining_lyric_i))[:artist_name]}"
       answer_options_remaining.delete(this_index)
     end
-
     answer_options_array[answer_options_remaining[0]] << "#{Lyric.find(lyric_i)[:artist_name]}"
     answer_options_array << answer_options_array[answer_options_remaining[0]][0]
     answer_options_array

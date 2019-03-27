@@ -3,6 +3,7 @@ class CreateLyrics < ActiveRecord::Migration[5.0]
     create_table :lyrics do |t|
       t.string :artist_name
       t.string :most_lyric
+      t.string :song_title
     end
   end
 end
