@@ -15,30 +15,13 @@ loop do
 
   case user_selection
   when "find"
-    request = get_user_meal_request
-    recipe_data = ApiCaller.get_random_recipe_by_search(request)
-    recipe = Recipe.create_from_data(recipe_data.body)
-    Meal.create(user_id: user.id, recipe_id: recipe.id, active: true)
-    print_selection_title(recipe)
+    finding_action(user)
   when "cook"
-    user.print_active_meals
-    meal_choice = get_user_meal_choice
-    recipe = user.get_recipe_by_choice(meal_choice)
-    recipe.walk_through_steps
-    congratulate
-    user.set_cooked(meal_choice)
+    cooking_actions(user)
   when "list"
     user.get_ingredient_list
-
   when "meals"
-    loop do
-      user.print_meals
-      action = meal_action
-      if action == "exit"
-        break
-      end
-      user.perform(action)
-    end
+    meals_actions(user)
   when "exit"
     break
   end

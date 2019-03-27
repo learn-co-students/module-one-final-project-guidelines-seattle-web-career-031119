@@ -14,6 +14,7 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.8)
     arel (7.1.4)
+    artii (2.1.2)
     coderay (1.1.1)
     concurrent-ruby (1.0.5)
     formatador (0.2.5)
@@ -55,6 +56,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  artii
   formatador
   json
   paint

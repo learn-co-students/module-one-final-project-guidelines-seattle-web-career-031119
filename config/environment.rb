@@ -7,4 +7,5 @@ require_relative "../api_key.rb"
 
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/food_project.db')
-ActiveRecord::Base.logger.level = Logger::INFO
+ASCII_FONT = Artii::Base.new
+# ActiveRecord::Base.logger.level = Logger::INFO
