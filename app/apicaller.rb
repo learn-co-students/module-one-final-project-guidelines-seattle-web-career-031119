@@ -8,7 +8,7 @@ class ApiCaller
   end
 
   def self.get_random_recipe_by_search(search)
-    response = Unirest.get "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?number=100&offset=0&type=main+course&instructionsRequired=true&query=#{search.downcase.split(" ").join("+")}",
+    response = Unirest.get "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?number=100&offset=0&instructionsRequired=true&query=#{search.downcase.split(" ").join("+")}",
   headers:{
     "X-RapidAPI-Key" => get_api_key
   }

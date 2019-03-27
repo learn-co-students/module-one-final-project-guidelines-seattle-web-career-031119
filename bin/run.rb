@@ -10,6 +10,7 @@ welcome
 user = User.find_or_create_by(name: get_username)
 
 loop do
+  top_menu_banner
   list_selection_options
   user_selection = get_user_selection
 
@@ -23,6 +24,7 @@ loop do
   when "meals"
     meals_actions(user)
   when "exit"
+    exit_banner
     break
   end
 end

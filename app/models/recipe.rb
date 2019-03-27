@@ -5,18 +5,19 @@ class Recipe < ActiveRecord::Base
   has_many :users, through: :meals
 
   def walk_through_steps
-    print_ingredients
     steps.each_with_index do |step, index|
-      puts "\n\n---------STEP #{index+1}----------------"
+      sysbanner("STEP #{index+1}")
+      print_ingredients
+      puts "\n\n\n\n\n"
       puts "Takes #{step.length}" if !step.length.nil?
       puts step.instructions
-      puts "\n\nPress any key to view next step."
+      puts index != steps.count-1 ? "\n\nPress any key to view next step." : "You're done!"
       gets
     end
   end
 
   def print_ingredients
-    puts "\n\n---------INGREDIENTS----------------"
+    puts Paint["\n\n---------INGREDIENTS----------------", SYSCOLOR, :bold]
     ingredients.each do |ingredient|
       puts ingredient.full_name
     end
