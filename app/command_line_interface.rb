@@ -3,14 +3,14 @@ OPTIONS=["Find a Recipe","Cook a Recipe", "My Shopping List", "My Saved Meals", 
 ABBREV_OPTIONS = ["find", "cook", "list", "meals", "exit"]
 
 #--------------SYSTEM MESSAGES-------------#
-def welcome
+def sysbanner(title, color = SUB_BANNER_COLOR)
   system "clear"
-  puts Paint[ASCII_FONT.asciify(" Welcome To Mealworm! "), :cyan, :bold, :inverse]
+  puts Paint[ASCII_FONT.asciify(" #{title} "), color, :bold, :inverse]
 end
 
-def sysbanner(title)
+def welcome
   system "clear"
-  puts Paint[ASCII_FONT.asciify(" #{title} "), SUB_BANNER_COLOR, :bold, :inverse]
+  sysbanner("Welcome To Mealworm!", :cyan)
 end
 
 def top_menu_banner
@@ -43,7 +43,7 @@ def separator_line
 end
 
 def congratulate
-  puts "Great work!  Hope it tastes as good as you look. ;)"
+  puts "\n\nYou're done! Great work!"
 end
 
 def happy_shopping
@@ -64,8 +64,13 @@ def get_user_meal_choice
 end
 
 def get_user_meal_request
-  puts "Please enter a meal name:"
+  puts "Please enter a meal name (e.g. \"spinach ravioli\" or \"sushi\") to get a recipe:"
   gets.chomp.downcase
+end
+
+def enter_to_continue
+  puts "Press ENTER to return to the main menu."
+  gets
 end
 
 #TODO: This is a display and a request.  Move to two functions.
@@ -99,7 +104,20 @@ def list_selection_options
 end
 
 
-
+#------------FINDING NEW MEAL ACTIONS-----------#
+def finding_action(user)
+  find_new_meal_banner
+  request = get_user_meal_request
+  recipe_data = ApiCaller.get_random_recipe_by_search(request)
+  if recipe_data.nil?
+    puts "No results found for #{request}.  Check your spelling and try again!"
+    enter_to_continue
+    return
+  end
+  recipe = Recipe.create_from_data(recipe_data.body)
+  Meal.create(user_id: user.id, recipe_id: recipe.id, active: true, shopping: true)
+  print_selection_title(recipe)
+end
 
 #------------COOKING ACTIONS-----------#
 def cooking_actions(user)
@@ -108,24 +126,21 @@ def cooking_actions(user)
   meal_choice = get_user_meal_choice
   recipe = user.get_recipe_by_choice(meal_choice)
   recipe.walk_through_steps
-  congratulate
   user.set_cooked(meal_choice)
+  enter_to_continue
 end
-
-#------------FINDING NEW MEAL ACTIONS-----------#
-def finding_action(user)
-  find_new_meal_banner
-  request = get_user_meal_request
-  recipe_data = ApiCaller.get_random_recipe_by_search(request)
-  recipe = Recipe.create_from_data(recipe_data.body)
-  Meal.create(user_id: user.id, recipe_id: recipe.id, active: true, shopping: true)
-  print_selection_title(recipe)
+#------------SHOPPING LIST ACTIONS-----------#
+def shoplist_action(user)
+  sysbanner("Shopping List")
+  user.get_ingredient_list
+  happy_shopping
+  enter_to_continue
 end
 
 #------------MEALS ACTIONS-----------#
 def meals_actions(user)
-  my_meals_banner
   loop do
+    my_meals_banner
     user.print_meals
     action = meal_action
     if action == "exit"

@@ -62,10 +62,10 @@ class User < ActiveRecord::Base
 
     case parsed_actions[0]
     when "cook"
-      puts "Setting #{meals[index].recipe.title} to awaiting cooking!\n\n"
+      # puts "Setting #{meals[index].recipe.title} to awaiting cooking!\n\n"
       meals[index].update(active: true)
     when "remove"
-      puts "Removing #{meals[index].recipe.title} from your saved meals.\n\n"
+      # puts "Removing #{meals[index].recipe.title} from your saved meals.\n\n"
       meals[index].delete
     when "shoplist"
       meals[index].update(shopping: true)
@@ -100,8 +100,6 @@ class User < ActiveRecord::Base
       end
       Formatador.display_table(table)
     end
-    puts "Press Enter to return to the main menu"
-    gets
   end
 
 end

@@ -20,9 +20,7 @@ loop do
   when "cook"
     cooking_actions(user)
   when "list"
-    sysbanner("Shopping List")
-    user.get_ingredient_list
-    happy_shopping
+    shoplist_action(user)
   when "meals"
     meals_actions(user)
   when "exit"
