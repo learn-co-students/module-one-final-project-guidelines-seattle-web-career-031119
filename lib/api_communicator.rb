@@ -23,7 +23,7 @@ class Api
     {artist: "Vanilla Ice", title: "Ice Ice Baby"},
     {artist: "TLC", title: "No Scrubs"},
     {artist: "Kris Kross", title: "Jump"},
-    {artist: "Green Day", title: "Good Riddance (Time of Your Life)"},
+    {artist: "Green Day", title: "Good Riddance"},
     {artist: "Sir Mix-a-Lot", title: "Baby Got Back"},
     {artist: "Backstreet Boys", title: "I Want It That Way"},
     {artist: "Montell Jordan", title: "This Is How We Do It"},
@@ -33,16 +33,20 @@ class Api
     {artist: "Smash Mouth", title: "All Star"},
     {artist: "Will Smith", title: "Gettin' Jiggy Wit It"},
     {artist: "Semisonic", title: "Closing Time"},
-    {artist: "NSYNC", title: "Tearin Up My Heart"}
+    {artist: "Sixpence None the Richer", title: "Kiss Me"}
   ]
 
   def self.add_most_lyric_and_title_to_song_info
     @songs_array.each do |song_info|
       url ="https://api.lyrics.ovh/v1/#{song_info[:artist].gsub(' ', '%20')}/#{song_info[:title].gsub(' ', '%20')}"
-      lyrics = RestClient.get(url)
-      lines = JSON.parse(lyrics)["lyrics"].split("\n").reject!(&:empty?)
-      freq = lines.inject(Hash.new(0)) {|h,v| h[v] += 1; h}
-      song_info[:most_lyric] = lines.max_by {|v| freq[v]}
+      title_exists = Lyric.find_by(song_title: song_info[:title])
+      if !title_exists
+        lyrics = RestClient.get(url)
+        # binding.pry
+        lines = JSON.parse(lyrics)["lyrics"].split("\n").reject!(&:empty?)
+        freq = lines.inject(Hash.new(0)) {|h,v| h[v] += 1; h}
+        song_info[:most_lyric] = lines.max_by {|v| freq[v]}
+      end
     end
   end
 
@@ -61,7 +65,7 @@ class Api
   end
 
 def self.populate_lyrics_table
-  self.add_most_lyric_to_song_info
+  self.add_most_lyric_and_title_to_song_info
   self.gather_lyrics
 end
 
