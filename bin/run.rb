@@ -8,6 +8,7 @@ require "pry"
 
 welcome
 user = User.find_or_create_by(name: get_username)
+hello_user(user)
 
 loop do
   top_menu_banner

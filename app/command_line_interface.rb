@@ -52,6 +52,13 @@ def happy_shopping
   puts separator_line
 end
 
+def hello_user(user)
+  puts "Hello #{user.name}!"
+  puts separator_line
+  puts "Press Enter to view the main menu"
+  gets
+end
+
 #-------------USER INPUT PROMPTS------------------#
 
 def get_username
