@@ -46,6 +46,7 @@ def separator_line
   Paint["~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~", SYSCOLOR, :bold]
 end
 
+
 def congratulate
   systext("\n\nYou're done! Great work!")
 end
@@ -57,10 +58,35 @@ def happy_shopping
 end
 
 def hello_user(user)
-  puts "Hello #{user.name}!"
+  table_one = []
+  table_two = []
+  shopping_meals = user.meals.where(shopping: true)
+  cooked_meals = user.meals.where(active: false)
+  latest_meal_output = latest_meal(user)
+
+  table_one << {
+    Meals_Saved: user.meals.count,
+    Cooked_Meals: cooked_meals.count,
+    Recipes_in_Shopping_Cart: shopping_meals.count
+  }
+  table_two << {Last_Meal_Added: latest_meal_output}
   puts separator_line
+  puts "HELLO #{user.name.upcase}!"
+  puts separator_line
+  puts Formatador.display_table(table_one)
+  puts separator_line
+  puts Formatador.display_table(table_two)
   enter_to_continue
 end
+
+def latest_meal(user)
+  if user.recipes.count < 1
+    "You've added no meals, you silly worm!"
+  else
+    user.recipes.max.title
+  end
+end
+
 
 #-------------USER INPUT PROMPTS------------------#
 
