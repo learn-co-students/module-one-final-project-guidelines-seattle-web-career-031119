@@ -120,7 +120,6 @@ class User < ActiveRecord::Base
           Amount: "#{ingredients.amount} #{ingredients.unit}",
           Name: ingredients.name.upcase
         }
-        # puts "#{ingredients.amount} #{ingredients.unit} - #{ingredients.name.upcase}"
       end
       Formatador.display_table(table)
     end
