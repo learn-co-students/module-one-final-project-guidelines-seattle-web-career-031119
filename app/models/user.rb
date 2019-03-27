@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
 
       }
     end
-    Formatador.display_table(table, [:Index, :Title, :Status, :"On Shopping List?"])
+    Formatador.display_table(table, [:Index, :Title, :Status, :"On Shopping List?", :Rating, :Notes])
   end
 
   def rate(index)

@@ -47,7 +47,7 @@ def separator_line
 end
 
 def congratulate
-  puts "\n\nYou're done! Great work!"
+  systext("\n\nYou're done! Great work!")
 end
 
 def happy_shopping
