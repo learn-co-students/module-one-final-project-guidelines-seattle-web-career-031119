@@ -32,8 +32,7 @@ class Recipe < ActiveRecord::Base
       title: data["title"],
       external_id: data["id"],
       source_url: data["sourceUrl"],
-      credit_text: data["creditText"],
-      active: true
+      credit_text: data["creditText"]
     })
 
     data["extendedIngredients"].each do |ingredient|

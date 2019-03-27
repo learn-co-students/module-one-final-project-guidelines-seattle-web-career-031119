@@ -18,7 +18,7 @@ loop do
     request = get_user_meal_request
     recipe_data = ApiCaller.get_random_recipe_by_search(request)
     recipe = Recipe.create_from_data(recipe_data.body)
-    Meal.create(user_id: user.id, recipe_id: recipe.id)
+    Meal.create(user_id: user.id, recipe_id: recipe.id, active: true)
     print_selection_title(recipe)
   when "cook"
     user.print_active_meals
