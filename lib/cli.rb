@@ -23,10 +23,18 @@ class Cli
 
     while round_counter <= 4
       lyric_i = rand(1..Lyric.count)
+      while songs_already_chosen.include?(lyric_i)
+        lyric_i = rand(1..Lyric.count)
+      end
+
       songs_already_chosen << lyric_i
       self.a_single_round(lyric_i, current_game)
       round_counter +=1
     end
+
+    scores = Round.where(game_id: current_game.id).collect {|a_round| a_round[:score]}
+    puts "Nice game dude!"
+    puts "Your total is: #{scores.inject(0) {|score, sum| sum + score}}"
   end
 
   def self.get_random_artist(remaining_lyric_i)
@@ -44,12 +52,20 @@ class Cli
     puts "Which artist wrote this lyric?"
     puts "#{guess_this_lyric[:most_lyric]}"
     puts
+
     correct_answer = self.display_options(lyric_i)
     puts
+    puts "Choose an artist:"
     user_answer = gets.chomp
+
+    while !('a'..'d').to_a.include?(user_answer.downcase)
+      puts "Please choose between a, b, c, or d"
+      user_answer = gets.chomp
+    end
+
     if user_answer.downcase == correct_answer
       puts "You got it!"
-      round.score = 5
+      round = Round.update(round.id, :score => 5)
     else
       puts "Not quite dude!"
     end
