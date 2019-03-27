@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
     puts separator_line
   end
 
+  #TODO: Getting the meal object seems like it should be in the meals class.
   def print_meals
     meals.reset
     puts separator_line
@@ -50,10 +51,29 @@ class User < ActiveRecord::Base
         Index: index+1,
         Title: meal.recipe.title,
         Status: meal.active == false ? "Cooked" : "Awaiting Cooking",
-        "On Shopping List?": meal.shopping == true ? "Yes" : "No"
+        "On Shopping List?": meal.shopping == true ? "Yes" : "No",
+        Rating: meal.rating.to_stars
+        Notes: !meal.notes.nil? ? meal.notes : "None."
+
       }
     end
     Formatador.display_table(table, [:Index, :Title, :Status, :"On Shopping List?"])
+  end
+
+  def rate(index)
+    loop do
+      rating = gets.chomp.to_i
+      if rating > 0 && rating <= 5
+        meals[index].update(rating: rating)
+        break
+      else
+        puts "Please enter a number between 1 and 5."
+      end
+    end
+  end
+
+  def annotate(index)
+    meals[index].update(notes: gets.chomp)
   end
 
   def perform(action)

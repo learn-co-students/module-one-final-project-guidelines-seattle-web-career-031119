@@ -59,8 +59,7 @@ end
 def hello_user(user)
   puts "Hello #{user.name}!"
   puts separator_line
-  puts "Press Enter to view the main menu"
-  gets
+  enter_to_continue
 end
 
 #-------------USER INPUT PROMPTS------------------#
@@ -102,6 +101,12 @@ def get_user_selection
   choice = ABBREV_OPTIONS[gets.chomp.to_i-1]
 end
 
+def rate_and_annotate?
+  systext("Would you like to rate and/or make notes on this recipe? (Y/N)")
+  response = gets.chomp.downcase
+  yn(response)
+end
+
 #-------------MENUS-------------------#
 
 def list_selection_options
@@ -113,6 +118,16 @@ def list_selection_options
   Formatador.display_table(table)
   puts separator_line
 end
+
+#----------------HELPER FUNCTIONS------------#
+def yn(str)
+  if str == "y" || str ==  "yes"
+    return true
+  else
+    return false
+  end
+end
+
 
 
 #------------FINDING NEW MEAL ACTIONS-----------#
@@ -143,6 +158,12 @@ def cooking_actions(user)
   recipe = user.get_recipe_by_choice(meal_choice)
   recipe.walk_through_steps
   user.set_cooked(meal_choice)
+  if rate_and_annotate?
+    systext("Rating (1-5):")
+    user.rate(meal_choice)
+    systext("\n\nNotes:")
+    user.annotate(meal_choice)
+  end
   enter_to_continue
 end
 #------------SHOPPING LIST ACTIONS-----------#
