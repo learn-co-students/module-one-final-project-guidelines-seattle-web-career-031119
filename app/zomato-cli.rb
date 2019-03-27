@@ -10,7 +10,6 @@ end
 
 def api_connect(query_url)
   url_string = "https://developers.zomato.com/api/v2.1/" + query_url
-  binding.pry
   response_string = RestClient::Request.execute(method: :get,
     url: url_string,
     headers: {"user-key": api_key},
@@ -39,7 +38,7 @@ def api_connect(query_url)
 ## MENU HELPER METHODS
 ## ------------------------------------
 
-def multiple_choice_menu(prompt, choices)
+def menu_multiple_choice(prompt, choices)
   # Use when we need the user to choose from options.
   # Choices comes in as a hash (choices), with the user input as keys
   # and the action as values.  If you want to limit user input,
@@ -69,7 +68,7 @@ def multiple_choice_menu(prompt, choices)
   end
 end
 
-def get_input(prompt, condition=nil)
+def menu_get_input(prompt, condition=nil)
   # Use to get a response from the user.
   # Condition can be "alpha" (alphabetical), "number", or nil.
   active = 1
@@ -95,7 +94,7 @@ def get_input(prompt, condition=nil)
       elsif condition == "number"
         puts "Only numbers please!"
       end
-      get_input(prompt, condition)
+      menu_get_input(prompt, condition)
     end
   end
 end
@@ -107,13 +106,13 @@ end
 def program_open
   prompt = "\nWelcome! Enter 'Eat' to begin searching for delicous food,\nor 'Quit' to logout and quit the program.\n"
   choices = {"eat" => user_entry}
-  multiple_choice_menu(prompt, choices)
+  menu_multiple_choice(prompt, choices)
 end
 
 def user_entry
   prompt = "\nPlease login by entering your first name:\n"
   condition = "alpha"
-  username = get_input(prompt, condition)
+  username = menu_get_input(prompt, condition)
   user = User.find_or_create_by(name: username)
   puts "\nYou are now logged in as #{user.name.capitalize}\n"
   user_menu(user)
@@ -124,13 +123,13 @@ def user_menu(user)
   choices = {"see reviews" => user.pretty_reviews,
            "search" => food_search,
            format: "alpha"}
-  multiple_choice_menu(prompt, choices)
+  menu_multiple_choice(prompt, choices)
 end
 
 def food_search
   prompt = "\nEnter a neighborhood or city name\n"
   condition = "alpha"
-  location = get_input(prompt, condition)
+  location = menu_get_input(prompt, condition)
   choose_location(location)
 end
 
@@ -142,7 +141,7 @@ def choose_location(location)
 
   prompt = "\nEnter the number of the location you would like\n"
   condition = "number"
-  number = get_input(prompt, condition)
+  number = menu_get_input(prompt, condition)
 
   chosen_location = pretty_hash[number].values[0]
   get_cuisines(chosen_location, array_of_options)
@@ -153,7 +152,7 @@ def get_cuisines(chosen_location, array_of_options)
   hash_of_cuisines = most_occuring_cuisines(array_of_restaurants)
 
   ## below should be refactored to use pretty_hash and
-  ## display_pretty_hash and get_input
+  ## display_pretty_hash and menu_get_input
 
   count = 1
   hash_of_cuisines.each do |key,value|
@@ -162,7 +161,7 @@ def get_cuisines(chosen_location, array_of_options)
   end
   puts "Choose which cuisine you would like"
   cuisine = STDIN.gets.chomp.to_i
-  binding.pry
+  #binding.pry
 end
 
 ## ------------------------------------
@@ -171,7 +170,7 @@ end
 
 def display_pretty_hash(hash)
   hash.each do |key, value|
-    prnumber "#{key}: "
+    print "#{key}: "
     value.each {|key, value| puts "#{key}\n"}
   end
 end
