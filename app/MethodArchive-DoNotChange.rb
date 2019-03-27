@@ -251,50 +251,50 @@
 # end
 
 
-CLI -
-
-- at end of get_restaurants, give options:
-  - pick a restaurant
-  - new search
-
-- pick a restaurant
-  - show
-    -name
-    -cuisine
-    -avg rating
-    -$$$
-    -neighborhood
-  - give options:
-    - back to restaurant list
-    - new search
-    - review
-
-- review a restaurant:
-  get rating
-  get message
-  restaurant.new
-  review.new
-  puts review
-  go to cli.start
-
-- review menu
-  - print all reviews
-    -reviews should have numbered index like the other input hashes
-    -hash should be updated when reviews are changed in any way
-  - update review
-  - delete review
-  - go back to cli.start
-
-
-JON
-- multiple choice menu => case/when
-
-Beginning:
-  - eat / quit
-  - search / reviews
-
-Pick A Restaurant:
-  - new search / back to restaurant list / make a review
-
-Reviews Menu:
-  - update / delete / new search
+# CLI -
+#
+# - at end of get_restaurants, give options:
+#   - pick a restaurant
+#   - new search
+#
+# - pick a restaurant
+#   - show
+#     -name
+#     -cuisine
+#     -avg rating
+#     -$$$
+#     -neighborhood
+#   - give options:
+#     - back to restaurant list
+#     - new search
+#     - review
+#
+# - review a restaurant:
+#   get rating
+#   get message
+#   restaurant.new
+#   review.new
+#   puts review
+#   go to cli.start
+#
+# - review menu
+#   - print all reviews
+#     -reviews should have numbered index like the other input hashes
+#     -hash should be updated when reviews are changed in any way
+#   - update review
+#   - delete review
+#   - go back to cli.start
+#
+#
+# JON
+# - multiple choice menu => case/when
+#
+# Beginning:
+#   - eat / quit
+#   - search / reviews
+#
+# Pick A Restaurant:
+#   - new search / back to restaurant list / make a review
+#
+# Reviews Menu:
+#   - update / delete / new search

@@ -6,37 +6,63 @@ class CLI
   ## MENU HELPER METHODS
   ## ------------------------------------
 
-  def self.menu_multiple_choice(prompt, choices)
-    # Use when we need the user to choose from options.
-    # Choices comes in as a hash (choices), with the user input as keys
-    # and the action as values.  If you want to limit user input,
-    # add ":format => 'alpha'" or ":format => 'number'"
-
-    # REFACTOR TO CASE/WHEN
-
+  def self.main_menu(prompt)
     active = 1
-    while active == 1 do
-      puts prompt
-      case choices[:format]
-      when "alpha"
-        user_response = STDIN.gets.chomp.downcase
-      when "number"
-        user_response = STDIN.gets.chomp.to_i
-      else
-        user_response = STDIN.gets.chomp.downcase
-      end
+    dashes = ''
 
-      case
-      when choices.keys.include?(user_response)
-        active = 0
-        #eval(choices[user_response])
-      when user_response == 'quit' || 'exit'
-        active = 0
-        exit
-      else
-        puts "Sorry, I didn\'t understand."
-      end
+    while active == 1
+        length_of_prompt = prompt.length + 44
+        length_of_prompt.times {|x| dashed = dashes + '-'}
+        puts "\n"+ "-"*length_of_prompt
+        puts "#{prompt} Enter 'logout' to return to the login menu."
+        puts "-"*length_of_prompt + "\n"
+        user_response = STDIN.gets.chomp
+        user_response.downcase!
+        user_response.strip!
+
+        if user_response.match(/^[[:alpha:]]+$/) != nil #check if special characters are present in user input
+              case user_response
+
+              when "logout"
+                active = 0
+                puts "\nOK, see you later #{@@user.name.capitalize}!\n"
+                @@user = nil
+                self.user_entry
+
+              when "search"
+                active = 0
+                self.food_search
+
+              when "back"
+                active = 0
+                self.get_restaurants
+
+              when "review"
+                active = 0
+                self.create_review
+
+              when "see reviews"
+                active = 0
+                self.read_reviews
+
+              when "update review"
+                active = 0
+                self.update_review
+
+              when "delete review"
+                active = 0
+                @@user.delete_review
+
+              else
+                puts "\nI am not smart enough to understand that. Please enter a valid command.\n"
+              end
+
+        else
+          puts "\nPlease enter a command that does not contain special characters.\n"
+        end
+
     end
+
   end
 
   def self.menu_get_input(prompt, condition=nil)
@@ -87,7 +113,8 @@ class CLI
     username = self.menu_get_input(prompt, condition)
     @@user = User.find_or_create_by(name: username)
     puts "\nYou are now logged in as #{@@user.name.capitalize}\n"
-    self.user_menu
+    #self.user_menu
+    self.main_menu("I don't know what to do AHHHHHHH panicing!!!!")
   end
 
   def self.user_menu
