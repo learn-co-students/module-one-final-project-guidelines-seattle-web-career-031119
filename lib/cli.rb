@@ -17,14 +17,14 @@ class Cli
   end
 
   def self.start_a_game
-    @current_game = Game.create
+    current_game = Game.create
     round_counter = 1
     songs_already_chosen =[]
 
     while round_counter <= 4
       lyric_i = rand(1..Lyric.count)
       songs_already_chosen << lyric_i
-      self.a_single_round(lyric_i)
+      self.a_single_round(lyric_i, current_game)
       round_counter +=1
     end
   end
@@ -35,8 +35,8 @@ class Cli
     rand_index
   end
 
-  def self.a_single_round(lyric_i)
-    Round.create(game_id: @current_game.id, player_id: @player.id)
+  def self.a_single_round(lyric_i, current_game)
+    round = Round.create(game_id: current_game.id, player_id: @player.id, score: 0)
     @remaining_lyric_i = (1..Lyric.count).collect {|x| x}
     @remaining_lyric_i.delete(lyric_i)
 
@@ -44,15 +44,22 @@ class Cli
     puts "Which artist wrote this lyric?"
     puts "#{guess_this_lyric[:most_lyric]}"
     puts
-    self.display_options(lyric_i)
+    correct_answer = self.display_options(lyric_i)
     puts
     user_answer = gets.chomp
+    if user_answer.downcase == correct_answer
+      puts "You got it!"
+      round.score = 5
+    else
+      puts "Not quite dude!"
+    end
+    puts
   end
 
   def self.display_options(lyric_i)
     answer_options_array = self.randomize_answers(lyric_i)
-    answer_options_array.each {|answer_option| puts answer_option}
-    puts
+    (0..3).each {|i| puts answer_options_array[i]}
+    answer_options_array[4]
   end
 
   def self.randomize_answers(lyric_i)
@@ -66,9 +73,7 @@ class Cli
     end
 
     answer_options_array[answer_options_remaining[0]] << "#{Lyric.find(lyric_i)[:artist_name]}"
+    answer_options_array << answer_options_array[answer_options_remaining[0]][0]
     answer_options_array
   end
 end
-
-
-0
