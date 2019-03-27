@@ -4,7 +4,7 @@ def menu
   status = 0
   while status == 0
     puts
-    puts "Welcome! Enter 'eat' to begin searching for delicous food around Seattle or 'quit' to logout and quit the program."
+    puts "Welcome! Enter 'eat' to begin searching for delicous food around Seattle or 'Quit' to logout and quit the program."
     puts
     command = gets.chomp
     puts
@@ -52,8 +52,29 @@ def user_menu(user)
     puts
     location = gets.chomp
     puts
-    hash = handle_location(location)
-    display_pretty_hash(hash)
+    location_options_hash = handle_location(location)
+    display_pretty_hash(location_options_hash)
+    puts "Enter the number of the location you would like"
+    puts
+    number = gets.chomp.to_i
+    puts
+
+
+    choosen_location = location_options_hash[number].values[0]
+    array_of_options = match_input_to_location(location)
+    array_of_restaurants = search_area_for_restaurants(array_of_options[choosen_location])
+
+    hash_of_cuisines = most_occuring_cuisines(array_of_restaurants)
+    count = 1
+    hash_of_cuisines.each do |key,value|
+      puts "#{count}. #{key} (#{value} restaurant(s))"
+      count += 1
+    end
+    puts "Choose which cuisine you would like"
+    puts
+    cuisine = gets.chomp.to_i
+
+    binding.pry
 
   elsif response_string.downcase == 'quit'
     status = 1
@@ -69,7 +90,7 @@ end
 def display_pretty_hash(hash)
   hash.each do |key, value|
     print "#{key}: "
-    vale.each {|key, value| puts key}
+    value.each {|key, value| puts key}
   end
   puts
 end
