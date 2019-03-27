@@ -3,20 +3,27 @@ OPTIONS=["Find a Recipe","Cook a Recipe", "My Shopping List", "My Saved Meals", 
 ABBREV_OPTIONS = ["find", "cook", "list", "meals", "exit"]
 
 def welcome
-  "Welcome to MealWorm!"
+  system "clear"
+  puts Paint[" Welcome to MealWorm! ", :cyan, :bold, :inverse]
+end
+
+def sepparator_line
+  Paint["~-~-~-~-~-~-~-~-~-~-~-~-~-~-~-~", :black, :bold]
 end
 
 def get_username
-  puts "Please enter your username:"
+  puts Paint["Please enter your username:", :black, :bold]
   gets.chomp.downcase
 end
 
 def list_selection_options
-  puts "Please enter a number 1-#{OPTIONS.count}:"
+  puts Paint["Please enter a number 1-#{OPTIONS.count} to select a menu item:", :black, :bold]
+  table = []
   OPTIONS.each_with_index {|option, index|
-    puts "#{index+1}. #{option}"
+    table << {Index: index+1, Option: option}
   }
-  puts "==============="
+  Formatador.display_table(table)
+  puts sepparator_line
 end
 
 def get_user_selection
@@ -37,7 +44,14 @@ def print_selection_title(recipe)
 end
 
 def meal_action
-  puts "\n\nPlease enter a meal action to perform:\n[EXAMPLE: 'cook 1', 'remove 2', 'shoplist 3']\nType 'exit' to return to top menu."
+  puts Paint["Write an action followed by the index of the meal you wish to change:", :black, :bold]
+  table = [
+    {Action: "cook", Description: "Change the item to \"Awaiting Cooking\""},
+    {Action: "remove", Description: "Remove the item from your meals."},
+    {Action: "shoplist", Description: "Add the recipe's ingredients to your shopping list"},
+    {Action: "exit", Description: "Return to main menu (No index needed)"}
+  ]
+  Formatador.display_table(table)
   gets.chomp
 end
 

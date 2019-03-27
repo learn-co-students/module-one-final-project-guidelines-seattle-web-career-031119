@@ -6,12 +6,12 @@ class User < ActiveRecord::Base
   ACTIONS = ["cook", "remove", "shoplist"]
 
   def print_recipe_options
-    puts "================================="
+    puts sepparator_line
     puts "Please select one:"
     recipes.each_with_index do |recipe, i|
       puts "#{i+1}. #{recipe.title}"
     end
-    puts "=================================="
+    puts sepparator_line
   end
 
   def get_active_meals
@@ -19,20 +19,28 @@ class User < ActiveRecord::Base
   end
 
   def print_active_meals
-    puts "================================="
-    puts "Please select one:"
+    puts sepparator_line
+    puts Paint["Please select a recipe to cook:", :black, :bold]
+    table = []
     get_active_meals.each_with_index do |meal, i|
-      puts "#{i+1}. #{meal.recipe.title}"
+      table << {Index: i+1, Title: meal.recipe.title}
     end
-    puts "=================================="
+    Formatador.display_table(table)
+    puts sepparator_line
   end
 
   def print_meals
     meals.reset
-    puts "=================================="
+    puts sepparator_line
+    table = []
     meals.each_with_index do |meal, index|
-      puts "#{index+1}. #{meal.recipe.title}\t\t#{meal.active == false ? "Cooked" : "Awaiting Cooking"}"
+      table << {
+        Index: index+1,
+        Title: meal.recipe.title,
+        Status: meal.active == false ? "Cooked" : "Awaiting Cooking"
+      }
     end
+    Formatador.display_table(table, [:Index, :Title, :Status])
   end
 
   def perform(action)
