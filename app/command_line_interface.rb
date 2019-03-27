@@ -8,6 +8,10 @@ def sysbanner(title, color = SUB_BANNER_COLOR)
   puts Paint[ASCII_FONT.asciify(" #{title} "), color, :bold, :inverse]
 end
 
+def systext(text, color = SYSCOLOR)
+  puts Paint[text, SYSCOLOR, :bold]
+end
+
 def welcome
   system "clear"
   sysbanner("Welcome To Mealworm!", :cyan)
@@ -110,7 +114,7 @@ def finding_action(user)
   request = get_user_meal_request
   recipe_data = ApiCaller.get_random_recipe_by_search(request)
   if recipe_data.nil?
-    puts "No results found for #{request}.  Check your spelling and try again!"
+    systext("\n\nNo results found for #{request}.  Check your spelling and try again!")
     enter_to_continue
     return
   end
@@ -122,6 +126,11 @@ end
 #------------COOKING ACTIONS-----------#
 def cooking_actions(user)
   cooking_banner
+  if !user.has_active_meals?
+    systext("You currently have no meals awaiting cooking. Add some from your past recipes, or add new ones via the find menu!")
+    enter_to_continue
+    return
+  end
   user.print_active_meals
   meal_choice = get_user_meal_choice
   recipe = user.get_recipe_by_choice(meal_choice)
