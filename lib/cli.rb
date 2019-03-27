@@ -44,9 +44,29 @@ class Cli
     puts "Which artist wrote this lyric?"
     puts "#{guess_this_lyric[:most_lyric]}"
     puts
-    puts "a. #{Lyric.find(self.get_random_artist(@remaining_lyric_i))[:artist_name]}          | b. #{Lyric.find(self.get_random_artist(@remaining_lyric_i))[:artist_name]}"
-    puts "c. #{Lyric.find(lyric_i)[:artist_name]}          | d. #{Lyric.find(self.get_random_artist(@remaining_lyric_i))[:artist_name]}"
+    self.display_options(lyric_i)
     puts
+    user_answer = gets.chomp
+  end
+
+  def self.display_options(lyric_i)
+    answer_options_array = self.randomize_answers(lyric_i)
+    answer_options_array.each {|answer_option| puts answer_option}
+    puts
+  end
+
+  def self.randomize_answers(lyric_i)
+    answer_options_array =['a. ', 'b. ', 'c. ' , 'd. ']
+    answer_options_remaining = [0, 1, 2, 3]
+
+    while answer_options_remaining.count > 1
+      this_index = answer_options_remaining.sample
+      answer_options_array[this_index] << "#{Lyric.find(self.get_random_artist(@remaining_lyric_i))[:artist_name]}"
+      answer_options_remaining.delete(this_index)
+    end
+
+    answer_options_array[answer_options_remaining[0]] << "#{Lyric.find(lyric_i)[:artist_name]}"
+    answer_options_array
   end
 end
 
