@@ -21,6 +21,7 @@ loop do
     cooking_actions(user)
   when "list"
     user.get_ingredient_list
+    happy_shopping
   when "meals"
     meals_actions(user)
   when "exit"

@@ -46,6 +46,12 @@ def congratulate
   puts "Great work!  Hope it tastes as good as you look. ;)"
 end
 
+def happy_shopping
+  puts sepparator_line
+  puts "HAPPY SHOPPING! Grab some Oreos® just for fun!"
+  puts sepparator_line
+end
+
 #-------------USER INPUT PROMPTS------------------#
 
 def get_username
