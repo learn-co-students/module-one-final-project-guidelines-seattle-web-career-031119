@@ -9,7 +9,9 @@ class Player < ActiveRecord::Base
       puts
       player_exists
     else
-      self.create(username: username)
+      player = self.create(username: username)
+      puts "Welcome, #{player.username}!"
+      puts
     end
   end
 end
