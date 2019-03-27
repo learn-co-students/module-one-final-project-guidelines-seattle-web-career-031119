@@ -26,6 +26,7 @@ class Cli
       self.display_menu_choices
       menu_choice = gets.chomp
       puts
+      player = Player.find_by(username: @username)
 
       case menu_choice
       when "1"
