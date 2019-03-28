@@ -31,10 +31,8 @@ class Game < ActiveRecord::Base
     puts
     puts "======================================================================"
     puts
-    puts Cli.fit_length("Nice game dude!", 70, ' ')
     puts Cli.fit_length("Nice game dude!", ' ')
     puts
-    puts Cli.fit_length("Your final score is: #{total_score}", 70, ' ')
     puts Cli.fit_length("Your final score is: #{total_score}", ' ')
     puts
     puts "======================================================================"

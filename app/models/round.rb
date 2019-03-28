@@ -9,7 +9,7 @@ class Round < ActiveRecord::Base
   end
 
   def randomize_answers(lyric_i)
-    answer_options_array =['a. ', 'b. ', 'c. ' , 'd. ']
+    answer_options_array =['a. ', 'b. ', 'c. ', 'd. ']
     answer_options_remaining = [0, 1, 2, 3]
 
     while answer_options_remaining.count > 1
@@ -87,7 +87,6 @@ class Round < ActiveRecord::Base
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :red]
     end
     sleep(2)
-    # system "clear"
   end
 
 end
