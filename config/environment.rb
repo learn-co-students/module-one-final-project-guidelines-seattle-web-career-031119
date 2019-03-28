@@ -12,6 +12,7 @@ SYSCOLOR = :magenta
 SUB_BANNER_COLOR = :green
 ActiveRecord::Base.logger.level = Logger::INFO
 PASTEL = Pastel.new
+MENU_MESSAGE = MenuMessage.new
 
 #-------------MONKEY PATCH METHODS FOR CODE FLOW CLARITY-----------#
 class Fixnum

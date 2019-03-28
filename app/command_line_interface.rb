@@ -2,8 +2,6 @@ OPTIONS=["Find a Recipe","Cook a Recipe", "My Shopping List", "My Saved Meals", 
 
 ABBREV_OPTIONS = ["find", "cook", "list", "meals", "exit"]
 
-MENU_MESSAGE = MenuMessage.new
-
 #--------------SYSTEM MESSAGES-------------#
 def sysbanner(title, color = SUB_BANNER_COLOR)
   system "clear"

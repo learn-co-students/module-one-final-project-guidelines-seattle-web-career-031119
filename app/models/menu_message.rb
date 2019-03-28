@@ -8,7 +8,7 @@ class MenuMessage
   def display
     if !message.nil?
       systext(message)
-      message = nil
+      @message = nil
     end
   end
 end
