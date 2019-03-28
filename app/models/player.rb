@@ -21,11 +21,11 @@ class Player < ActiveRecord::Base
     sorted_arr = top_players_hash.sort_by {|key, value| value}.reverse
 
     self.count < 5 ? leader_index = self.count : leader_index = 5
-    return_hash = {}
+    return_arr = []
     (0...leader_index).each do |num|
-      return_hash[sorted_arr[num][0].username] = sorted_arr[num][1]
+      return_arr << [[sorted_arr[num][0].username], sorted_arr[num][1]]
     end
-    return_hash
+    return_arr
   end
 
   def get_player_scores
