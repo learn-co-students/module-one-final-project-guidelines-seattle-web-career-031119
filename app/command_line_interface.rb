@@ -156,18 +156,31 @@ def convert_diet_to_syntax
 end
 
 def get_user_intolerances
-  diets = ["dairy", "egg", "gluten", "peanut", "shellfish", "soy", "wheat", "none"]
+  intols = ["dairy", "egg", "gluten", "peanut", "shellfish", "soy", "wheat", "none"]
   response = ""
   table = []
   puts "Please list any food intolerances. Seperate multiple with a comma:"
-  diets.each do |name|
+  intols.each do |name|
     table << {
-      Diet: name
+      Intolerance: name
     }
   end
   Formatador.display_table(table)
   puts separator_line
-  response = gets.chomp.downcase
+  loop do
+    response = gets.chomp.downcase
+    response_array = response.split(/[,\s]+/)
+    response = intols.select { |intol| response_array.include?(intol) }
+    if response.include?("none") && response.count == 1
+      break
+    elsif !response.include?("none")
+      break
+    else
+      puts separator_line
+      puts "You included 'none' and another option, but that doesn't make sense, you silly little worm."
+      puts "Please list any food intolerances. Seperate multiple with a comma:"
+    end
+  end
   response
 end
 
@@ -176,7 +189,7 @@ def convert_intolerance_to_syntax
   if response == "none"
     response = ""
   else
-    response = 'intolerances=' + response.split(/,[\s]*/).join("%2C+")
+    response = 'intolerances=' + response.split(/[,\s]+/).join("%2C+")
   end
   response
 end
