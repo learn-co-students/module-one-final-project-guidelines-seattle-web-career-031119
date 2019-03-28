@@ -98,8 +98,16 @@ def get_username
   gets.chomp.downcase
 end
 
-def get_user_meal_choice
-  gets.chomp.to_i-1
+def get_user_meal_choice(user)
+  choice = 0
+  loop do
+    choice = gets.chomp.to_i-1
+    if choice >= 0 && choice < user.get_active_meal_count
+      return choice
+    else
+      systext("Please enter the index of a meal (range 1-#{user.get_active_meal_count})")
+    end
+  end
 end
 
 def get_user_meal_request
@@ -170,7 +178,7 @@ def get_user_selection
   choice = 0
   loop do
     choice = gets.chomp.to_i-1
-    if choice > 0 && choice < OPTIONS.count
+    if choice >= 0 && choice < OPTIONS.count
       break
     else
       systext("You can only select an option between 1 and #{OPTIONS.count}")
@@ -234,7 +242,7 @@ def cooking_actions(user)
     return
   end
   user.print_active_meals
-  meal_choice = get_user_meal_choice
+  meal_choice = get_user_meal_choice(user)
   recipe = user.get_recipe_by_choice(meal_choice)
   recipe.walk_through_steps
   if rate_and_annotate?

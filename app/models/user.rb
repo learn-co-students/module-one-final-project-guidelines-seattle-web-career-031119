@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     meals.select {|meal| meal.active == true}
   end
 
+  def get_active_meal_count
+    get_active_meals.count
+  end
+
   def has_active_meals?
     get_active_meals.count > 0
   end
