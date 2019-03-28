@@ -6,11 +6,27 @@ class CLI
   @@restaurant = nil
   @@restaurants = nil
   @@restaurants_master_list = nil
-  @@reviews_hash = nil
+
+## Reader methods for Review class to access - added by Mera
+
+  def self.user
+    @@user
+  end
+
+  ## writer method only for testing
+  def self.user=(user)
+    @@user = user
+  end
+
+  def self.restaurant
+    @@restaurant
+  end
+
 
   ## ------------------------------------
   ## MENU HELPER METHODS
   ## ------------------------------------
+
 
   def self.main_menu(prompt)
     active = 1
@@ -41,19 +57,19 @@ class CLI
 
               when "review"
                 active = 0
-                self.create_review
+                Review.create_review
 
               when "see reviews"
                 active = 0
-                self.read_reviews
+                Review.read_reviews
 
               when "update review"
                 active = 0
-                self.update_review
+                Review.update_review
 
               when "delete review"
                 active = 0
-                self.delete_review
+                Review.delete_review
 
               when "quit"
                 active = 0
@@ -229,5 +245,4 @@ class CLI
     self.pretty_restaurant_data.each {|line| puts "#{line}"}
     main_menu(["review", "back", "search", "logout"])
   end
-
 end
