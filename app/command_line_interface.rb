@@ -165,7 +165,8 @@ def meal_action
   puts Paint["Write an action followed by the index of the meal you wish to change:", SYSCOLOR, :bold]
   table = [
     {Action: "cook", Description: "Change the item to \"Awaiting Cooking\""},
-    {Action: "remove", Description: "Remove the item from your meals."},
+    {Action: "nocook", Description: "Change the item to \"Cooked\""},
+    {Action: "remove", Description: "Remove the item from your meals"},
     {Action: "shoplist", Description: "Add the recipe's ingredients to your shopping list"},
     {Action: "unshop", Description: "Remove the recipe's ingredients from your shopping list"},
     {Action: "exit", Description: "Return to main menu (No index needed)"}
@@ -264,13 +265,15 @@ end
 
 #------------MEALS ACTIONS-----------#
 def meals_actions(user)
+  message = nil
   loop do
     my_meals_banner
     user.print_meals
+    systext(message) if !message.nil?
     action = meal_action
     if action == "exit"
       break
     end
-    user.perform(action)
+    message = user.perform(action)
   end
 end

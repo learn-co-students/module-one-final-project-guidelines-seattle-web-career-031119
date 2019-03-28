@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :meals
   has_many :recipes, through: :meals
 
-  ACTIONS = ["cook", "remove", "shoplist", "unshop"]
+  ACTIONS = ["cook", "nocook", "remove", "shoplist", "unshop"]
 
   def print_recipe_options
     puts separator_line
@@ -90,21 +90,25 @@ class User < ActiveRecord::Base
     parsed_actions = action.split(" ")
     index = parsed_actions[1].to_i - 1
     if parsed_actions.count != 2 || !ACTIONS.include?(parsed_actions[0])
-      puts "Invalid command."
-      return
+      return "Invalid command.\n\n"
     end
 
     case parsed_actions[0]
     when "cook"
-      # puts "Setting #{meals[index].recipe.title} to awaiting cooking!\n\n"
       meals[index].update(active: true)
+      return "Setting #{meals[index].recipe.title} to awaiting cooking!\n\n"
+    when "nocook"
+      meals[index].update(active: false)
+      return "Setting #{meals[index].recipe.title} to cooked.\n\n"
     when "remove"
-      # puts "Removing #{meals[index].recipe.title} from your saved meals.\n\n"
       meals[index].delete
+      return "Removing #{meals[index].recipe.title} from your saved meals.\n\n"
     when "shoplist"
       meals[index].update(shopping: true)
+      return "Added #{meals[index].recipe.title} to your shopping list!\n\n"
     when "unshop"
       meals[index].update(shopping: false)
+      return "Removed #{meals[index].recipe.title} from your shopping list.\n\n"
     end
   end
 
