@@ -6,6 +6,7 @@ class CLI
   @@restaurant = nil
   @@restaurants = nil
   @@restaurants_master_list = nil
+  @@reviews_hash = nil
 
   ## ------------------------------------
   ## MENU HELPER METHODS
@@ -16,11 +17,7 @@ class CLI
     dashes = ''
 
     while active == 1
-        length_of_prompt = prompt.length + 44
-        length_of_prompt.times {|x| dashed = dashes + '-'}
-        puts "\n"+ "-"*length_of_prompt
-        puts "#{prompt} Enter 'logout' to return to the login menu."
-        puts "-"*length_of_prompt + "\n"
+        self.display_prompt(prompt)
         user_response = STDIN.gets.chomp
         user_response.downcase!
         user_response.strip!
@@ -58,6 +55,10 @@ class CLI
                 active = 0
                 @@user.delete_review
 
+              when "quit"
+                active = 0
+                exit
+
               else
                 puts "\nI am not smart enough to understand that. Please enter a valid command.\n"
               end
@@ -68,6 +69,29 @@ class CLI
 
     end
 
+  end
+
+  def self.prompt_hash
+    {
+      "search" => "Start a new search",
+      "logout" => "Log out of your account",
+      "back" => "Go back to restaurants list",
+      "review" => "Create a review of this restaurant",
+      "see reviews" => "See all of your reviews",
+      "update review" => "Update one of your reviews",
+      "delete review" => "Delete one of your reviews",
+      "quit" => "Leave I guess"
+    }
+  end
+
+  def self.display_prompt(prompt)
+    prompt << "quit"
+    puts "—" * 80
+    puts "Would you like to:"
+    prompt.each do |line|
+      puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
+    end
+    puts "—" * 80
   end
 
   def self.menu_get_input(prompt, condition=nil)
@@ -81,7 +105,7 @@ class CLI
       when condition == nil
         active = 0
         return user_response.strip
-      when condition == "alpha" && user_response.match(/^[[:alpha:]]+$/) != nil
+      when condition == "alpha" && user_response.match(/^[\w\s]+$/) != nil
         active = 0
         return user_response.strip
       when condition == "number" && user_response.to_i != nil
@@ -107,9 +131,7 @@ class CLI
   ## ------------------------------------
 
   def self.start
-    prompt = "\nWelcome! Enter 'Eat' to begin searching for delicous food,\nor 'Quit' to logout and quit the program.\n"
-    choices = {"eat" => user_entry}
-    # menu_multiple_choice(prompt, choices)
+    puts "\nWelcome to 'Eat or Quit' our Zomato based CLI!\n"
     self.user_entry
   end
 
@@ -120,21 +142,7 @@ class CLI
     @@user = User.find_or_create_by(name: username)
     puts "\nYou are now logged in as #{@@user.name.capitalize}\n"
     #self.user_menu
-    self.main_menu("I don't know what to do AHHHHHHH panicing!!!!")
-  end
-
-  def self.user_menu
-    prompt = "\n#{@@user.name.capitalize}, what would you like to do?\nEnter 'See Reviews', 'Search' or 'Quit' to logout.\n"
-    # #binding.pry
-    # choices = {"see reviews" => 'user.pretty_reviews',
-    #          "search" => 'food_search',
-    #          format: "alpha"}
-    # menu_multiple_choice(prompt, choices)
-
-    puts prompt
-    puts "This is not working yet, going to food_search"
-    # user.pretty_reviews
-    self.food_search
+    self.main_menu(["search", "see reviews", "logout"])
   end
 
   def self.food_search
@@ -197,24 +205,22 @@ class CLI
   end
 
   def self.pretty_restaurant_data
-    ["—"*60,
-     "Restaurant:                 #{@@restaurant['restaurant']['name']}",
-     "—"*60,
-     "Cuisine(s):                 #{@@restaurant['restaurant']['cuisines']}",
-     "Average Rating:             #{@@restaurant['restaurant']['user_rating']['aggregate_rating']}",
-     "Locality:                   #{@@restaurant['restaurant']['location']['locality']}",
-     "Price Range:                " + '$'*@@restaurant['restaurant']['price_range'].to_i,
-     "Average Cost for Two:       $#{@@restaurant['restaurant']['average_cost_for_two'].to_i}",
-     "Address:                    #{@@restaurant['restaurant']['location']['address']}"
+    ["—"*80,
+     "Restaurant:                  #{@@restaurant['restaurant']['name']}",
+     "—"*80,
+     "Cuisine(s):                  #{@@restaurant['restaurant']['cuisines']}",
+     "Average Rating:              #{@@restaurant['restaurant']['user_rating']['aggregate_rating']}",
+     "Locality:                    #{@@restaurant['restaurant']['location']['locality']}",
+     "Price Range:                 " + '$'*@@restaurant['restaurant']['price_range'].to_i,
+     "Average Cost for Two:        $#{@@restaurant['restaurant']['average_cost_for_two'].to_i}",
+     "Address:                     #{@@restaurant['restaurant']['location']['address']}"
   ]
   end
 
   def self.pick_restaurant
-    binding.pry
     pretty_restaurant_data = self.pretty_restaurant_data
     pretty_restaurant_data.each {|line| puts "#{line}"}
-    prompt = "Would you like to:\n\tReview this restaurant\n\tGo back to restaurant list\n\tStart a new search\n\t(review, back, search)"
-    main_menu(prompt)
+    main_menu(["review", "back", "search", "logout"])
   end
 
 

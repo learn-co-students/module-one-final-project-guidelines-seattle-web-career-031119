@@ -250,7 +250,6 @@
 #   final_hash
 # end
 
-
 # CLI -
 #
 # - at end of get_restaurants, give options:
