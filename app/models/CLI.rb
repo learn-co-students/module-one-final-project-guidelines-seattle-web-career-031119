@@ -165,6 +165,7 @@ class CLI
     pretty_location_hash = Processor.pretty_location_menu(location_suggestions_hash, location_options_array)
     Processor.display_pretty_location_hash(pretty_location_hash)
 
+
     prompt = "\nEnter the number of the location you would like\n"
     condition = {"number" => (1..location_options_array.length).to_a }
     number = self.menu_get_input(prompt, condition)

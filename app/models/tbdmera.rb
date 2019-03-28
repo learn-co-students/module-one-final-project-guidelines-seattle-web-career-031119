@@ -105,5 +105,3 @@
     prompt = ["search", "see reviews", "logout"]
     main_menu(prompt)
   end
-
-end
