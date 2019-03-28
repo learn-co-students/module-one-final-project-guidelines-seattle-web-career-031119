@@ -4,7 +4,7 @@
 
 The Totally Tubular 90's Trivia is a Ruby CLI game that challenges the player to guess popular 90's artists based on a line of lyrics from one of their songs.
 
-### Let's Git it
+### Let's Git It
 
 1. Fork the repository
 1. In your terminal, clone the repository with `git clone <your fork's link here>`
