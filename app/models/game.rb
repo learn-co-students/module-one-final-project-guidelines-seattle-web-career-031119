@@ -11,7 +11,7 @@ class Game < ActiveRecord::Base
     round_counter = 1
     songs_already_chosen =[]
 
-    while round_counter <= 4
+    while round_counter <= 5
       lyric_i = rand(1..Lyric.count)
       while songs_already_chosen.include?(lyric_i)
         lyric_i = rand(1..Lyric.count)
