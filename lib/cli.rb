@@ -7,11 +7,9 @@ class Cli
 
   def self.welcome_message
     puts
-    puts self.header
     self.header
     puts
     puts
-    puts self.line('*', 70)
     self.line('*')
     puts
     puts "How 90's are you?"
@@ -44,7 +42,6 @@ class Cli
         self.start_a_game(player)
       when "2"
         if player.get_player_scores.empty?
-          puts "You haven't played a game!"
           puts "You haven't played a game yet!"
         else
           puts "Your high score is: #{player.get_player_scores.max}"
@@ -52,7 +49,6 @@ class Cli
         puts
       when "3"
         if player.get_player_scores.empty?
-          puts "You haven't played a game!"
           puts "You haven't played a game yet!"
         else
           puts "Your average score is: #{player.get_players_avg_score}"
@@ -64,9 +60,6 @@ class Cli
       when "5"
         self.display_leaderboard
       when "6"
-        puts "-----------------------------"
-        puts "Thanks for playin! Peace out!"
-        puts "-----------------------------"
         system "clear"
         puts
         self.header
@@ -102,8 +95,6 @@ class Cli
     game.start_game(player)
   end
 
-  def self.fit_length(string, the_length, character)
-    until string.length >= the_length
   def self.fit_length(string, character)
     until string.length >= @game_width
       string.prepend(character)
@@ -124,8 +115,6 @@ class Cli
     puts Paint%["============================ I %{heart} THE 90s ============================", :cyan, :bright, heart: ["<3", :magenta]]
   end
 
-  def self.line(character, length)
-    puts character*length
   def self.line(character)
     puts character * @game_width
   end
