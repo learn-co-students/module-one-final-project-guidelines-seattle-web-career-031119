@@ -19,7 +19,7 @@ class Game < ActiveRecord::Base
 
       songs_already_chosen << lyric_i
       round = Round.create(player_id: player.id, game_id: self.id, score: 0)
-      round.start_a_round(lyric_i, self, player)
+      round.start_a_round(lyric_i, self, player, round_counter)
       round_counter +=1
     end
 

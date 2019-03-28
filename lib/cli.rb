@@ -31,7 +31,7 @@ class Cli
       case menu_choice
       when "1"
         self.start_a_game(player)
-      when '2'
+      when "2"
         if player.get_player_scores.empty?
           puts "You haven't played a game!"
         else
@@ -48,6 +48,10 @@ class Cli
       # when "4"
       #   self.get_username
       when "4"
+        puts "-----------------------------"
+        puts "Thanks for playin! Peace out!"
+        puts "-----------------------------"
+        puts
         nil
       else
         puts "Please select a valid input:"

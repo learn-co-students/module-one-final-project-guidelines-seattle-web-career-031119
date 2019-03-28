@@ -33,7 +33,9 @@ class Api
     {artist: "Smash Mouth", title: "All Star"},
     {artist: "Will Smith", title: "Gettin' Jiggy Wit It"},
     {artist: "Semisonic", title: "Closing Time"},
-    {artist: "Sixpence None the Richer", title: "Kiss Me"}
+    {artist: "Sixpence None the Richer", title: "Kiss Me"},
+    {artist: "House of Pain", title: "Jump Around"},
+    {artist: "All 4 One", title: "I Swear"}
   ]
 
   def self.add_most_lyric_and_title_to_song_info
@@ -64,30 +66,12 @@ class Api
     end
   end
 
-def self.populate_lyrics_table
-  self.add_most_lyric_and_title_to_song_info
-  self.gather_lyrics
-end
-
-# binding.pry
-
+  def self.populate_lyrics_table
+    self.add_most_lyric_and_title_to_song_info
+    self.gather_lyrics
+  end
 
 end
-
-#=============Random 90s Phrases==============
-
-# Correct:
-# ["You are all that and a bag of chips!", "Boo ya!", "You da bomb!", "Great job home skillet!", "Nice, dude!", "Slammin!"]
-#
-# Incorrect:
-# ["As if!", "Oh snap!", "Talk to the hand!", "That's right! ...NOT!", "You were hella close...", "Whatever!"]
-
-
-
-
-
-
-
 
 # binding.pry
 0
