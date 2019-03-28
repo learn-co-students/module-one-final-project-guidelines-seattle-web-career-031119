@@ -6,10 +6,16 @@ class Player < ActiveRecord::Base
     player_exists = self.find_by(username: username)
     if player_exists
       puts
+      Cli.header
+      puts
+      puts
       puts "Welcome back, #{player_exists.username}!"
       puts
       player_exists
     else
+      puts
+      Cli.header
+      puts
       puts
       player = self.create(username: username)
       puts "Welcome, #{player.username}!"
