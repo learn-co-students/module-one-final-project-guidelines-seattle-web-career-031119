@@ -5,8 +5,13 @@ class Cli
 
   def self.welcome_message
     puts
-    puts "Welcome to the 90's Song Quiz!"
-    puts "How well do YOU know the 90's?"
+    puts self.header
+    puts
+    puts self.line('*', 70)
+    puts
+    puts "How 90's are you?"
+    puts
+    puts "Test your 90s music knowledge"
     puts
     self.get_username
   end
@@ -77,10 +82,10 @@ class Cli
     game.start_game(player)
   end
 
-  def self.fit_length(string, the_length)
+  def self.fit_length(string, the_length, character)
     until string.length >= the_length
-      string.prepend(' ')
-      string << ' '
+      string.prepend(character)
+      string << character
     end
     string
   end
@@ -89,4 +94,14 @@ class Cli
     leaderarray = Player.leaderboard
     binding.pry
   end
+
+  def self.header
+    puts Paint%["============================ I %{heart} THE 90s ============================", :cyan, :bright, heart: ["<3", :magenta]]
+  end
+
+  def self.line(character, length)
+    puts character*length
+  end
+
+
 end
