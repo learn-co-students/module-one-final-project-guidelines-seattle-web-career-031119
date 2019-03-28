@@ -1,11 +1,4 @@
-# Module One Final Project Guidelines
-
-## Project Requirements
-
-
-
-
-3. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
+## The Totally Tubular 90's Trivia Show
 
 ## Sources
 
