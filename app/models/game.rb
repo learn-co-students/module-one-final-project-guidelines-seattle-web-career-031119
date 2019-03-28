@@ -31,9 +31,26 @@ class Game < ActiveRecord::Base
     puts
     puts "======================================================================"
     puts
-    puts Cli.fit_length("Nice game dude!", ' ')
+    puts
     puts
     puts Cli.fit_length("Your final score is: #{total_score}", ' ')
+    puts
+    case total_score
+      when 100
+        puts Cli.fit_length("Woo-hoo! You are a 90's master! Mad props!", ' ')
+      when 80
+        puts Cli.fit_length("You're pretty fly.. for a software engineer!", ' ')
+      when 60
+        puts Cli.fit_length("You might be all that.. but no bag of chips.", ' ')
+      when 40
+        puts Cli.fit_length("If at first you don't succeed, dust yourself off and try again.", ' ')
+      when 20
+        puts Cli.fit_length("What's the dillio? Carson Daly would NOT be proud.", ' ')
+      else
+        puts Cli.fit_length("I don't want no scrubs, a scrub is... well, um, you.", ' ')
+    end
+    puts
+    puts
     puts
     puts "======================================================================"
     puts

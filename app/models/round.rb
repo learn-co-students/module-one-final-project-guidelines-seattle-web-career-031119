@@ -56,7 +56,7 @@ class Round < ActiveRecord::Base
 
     correct_answer = self.display_options(lyric_i)
     puts
-    puts "Choose an artist:"
+    puts Paint["Choose an artist:", :inverse]
     puts
     user_answer = gets.chomp
     while !('a'..'d').to_a.include?(user_answer.downcase)
@@ -67,7 +67,7 @@ class Round < ActiveRecord::Base
 
     if user_answer.downcase == correct_answer
       correct_comment = ["You're all that and a bag of chips!", "BOO YA!", "You da bomb!", "Great job home skillet!", "You got it, dude!", "Correctamundo!", "WHOOMP! There it is!"].sample
-      correct_comment = Cli.fit_length(correct_comment, ' ')
+      correct_comment = Cli.fit_length(correct_comment + ' +20 pts', ' ')
 
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :green]
@@ -78,7 +78,7 @@ class Round < ActiveRecord::Base
       round = Round.update(self.id, :score => 20)
     else
       incorrect_comment = ["As if!", "Talk to the hand!", "That's right ...NOT!!", "Like, totally not even close.", "Ugh, whatever...", "Check yo self before you wreck yo self!"].sample
-      incorrect_comment = Cli.fit_length(incorrect_comment, ' ')
+      incorrect_comment = Cli.fit_length(incorrect_comment + ' +0 pts', ' ')
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :red]
       puts
