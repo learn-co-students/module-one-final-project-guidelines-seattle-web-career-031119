@@ -59,8 +59,12 @@ class Cli
         system "clear"
         if player.get_player_scores.empty?
           puts
+          self.header
+          puts
           puts "You haven't played a game yet! Duh!"
         else
+          puts
+          self.header
           puts
           puts "Your high score is: #{player.get_player_scores.max}"
         end
@@ -69,17 +73,29 @@ class Cli
         system "clear"
         if player.get_player_scores.empty?
           puts
+          self.header
+          puts
           puts "You haven't played a game yet! Duh!"
         else
+          puts
+          self.header
           puts
           puts "Your average score is: #{player.get_players_avg_score}"
         end
         puts
       when "4"
         system "clear"
+        puts
+        self.header
+        puts
+        puts
         self.display_leaderboard
+        puts
       when "5"
         system "clear"
+        puts
+        self.header
+        puts
         self.get_username
         break
       when "6"
@@ -87,7 +103,7 @@ class Cli
         puts
         self.header
         puts
-        self.line('#')
+        self.line('*')
         puts
         puts
         puts self.fit_length("Thanks for playin!", ' ')
@@ -95,7 +111,7 @@ class Cli
         puts self.fit_length("PEACE OUT!", ' ')
         puts
         puts
-        self.line('#')
+        self.line('*')
         puts
       else
         puts "Please select a valid input:"
