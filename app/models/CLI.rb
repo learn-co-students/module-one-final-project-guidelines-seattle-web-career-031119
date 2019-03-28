@@ -14,7 +14,6 @@ class CLI
 
   def self.main_menu(prompt)
     active = 1
-    dashes = ''
 
     while active == 1
         self.display_prompt(prompt)
@@ -27,8 +26,11 @@ class CLI
 
               when "logout"
                 active = 0
-                puts "\nOK, see you later #{@@user.name.capitalize}!\n"
+                system "clear"
+                puts "OK, see you later #{@@user.name.capitalize}!"
+                sleep(1.5)
                 @@user = nil
+                system "clear"
                 self.user_entry
 
               when "search"
@@ -87,7 +89,7 @@ class CLI
   def self.display_prompt(prompt)
     prompt << "quit"
     puts "—" * 80
-    puts "Would you like to:"
+    puts "#{@@user.name.capitalize}, would you like to:"
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
@@ -99,7 +101,7 @@ class CLI
     # Condition can be "alpha" (alphabetical), "number", or nil.
     active = 1
     while active == 1 do
-      puts "\n#{prompt}"
+      puts "#{prompt}"
       user_response = STDIN.gets.chomp
       case
       when condition == nil
@@ -135,17 +137,25 @@ class CLI
   ## ------------------------------------
 
   def self.start
-    puts "\nWelcome to 'Eat or Quit' our Zomato based CLI!\n"
+    system "clear"
+    puts "hello world!"
+    sleep(0.3)
+    system "clear"
+    puts "Welcome to 'Eat or Quit' our Zomato based CLI!"
+    sleep(4)
+    system "clear"
     self.user_entry
   end
 
   def self.user_entry
-    prompt = "\nPlease login by entering your first name:\n"
+    prompt = "Please login by entering your first name:"
     condition = "alpha"
     username = self.menu_get_input(prompt, condition)
     @@user = User.find_or_create_by(name: username)
-    puts "\nYou are now logged in as #{@@user.name.capitalize}\n"
-    #self.user_menu
+    system "clear"
+    puts "You are now logged in as #{@@user.name.capitalize}"
+    sleep(2)
+    system "clear"
     self.main_menu(["search", "see reviews", "logout"])
   end
 
