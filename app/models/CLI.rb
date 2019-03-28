@@ -158,6 +158,7 @@ class CLI
     pretty_location_hash = Processor.pretty_location_menu(location_suggestions_hash, location_options_array)
     Processor.display_pretty_location_hash(pretty_location_hash)
 
+
     prompt = "\nEnter the number of the location you would like\n"
     condition = "number"
     number = self.menu_get_input(prompt, condition)
@@ -222,3 +223,5 @@ class CLI
     pretty_restaurant_data.each {|line| puts "#{line}"}
     main_menu(["review", "back", "search", "logout"])
   end
+
+end
