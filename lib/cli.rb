@@ -73,4 +73,12 @@ class Cli
     game = Game.create
     game.start_game(player)
   end
+
+  def self.fit_length(string, the_length)
+    until string.length >= the_length
+      string.prepend(' ')
+      string << ' '
+    end
+    string
+  end
 end
