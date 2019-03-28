@@ -218,7 +218,6 @@ class CLI
   end
 
   def self.pick_restaurant
-    binding.pry
     pretty_restaurant_data = self.pretty_restaurant_data
     pretty_restaurant_data.each {|line| puts "#{line}"}
     main_menu(["review", "back", "search", "logout"])
