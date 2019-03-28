@@ -109,6 +109,46 @@ def enter_to_continue
   gets
 end
 
+def get_user_diet
+  diets = ["vegan", "vegetarian", "none"]
+  table = []
+  response = ""
+  puts "Please choose ONE of the following:"
+  diets.each do |name|
+    table << {
+      Diet: name
+    }
+  end
+  Formatador.display_table(table)
+  puts separator_line
+  loop do
+   response = gets.chomp.downcase
+   if !diets.include?(response)
+     puts "Please enter only one of the options above"
+   else
+    break
+  end
+  end
+  response
+end
+
+# def get_user_intolerances
+#   diets = ["dairy", "egg", "gluten", "peanut", "shellfish", "soy", "tree nut"]
+#   response = []
+#   table = []
+#   puts "Please list any food intolerances. Seperate multiple with a comma!"
+#   diets.each do |name|
+#     table << {
+#       Diet: name
+#     }
+#   end
+#   Formatador.display_table(table)
+#   puts separator_line
+#   response << gets.chomp.downcase
+#   response
+# end
+
+
 #TODO: This is a display and a request.  Move to two functions.
 def meal_action
   puts Paint["Write an action followed by the index of the meal you wish to change:", SYSCOLOR, :bold]
@@ -159,8 +199,10 @@ end
 #------------FINDING NEW MEAL ACTIONS-----------#
 def finding_action(user)
   find_new_meal_banner
+  user_diet = get_user_diet
+  # user_intolerances = get_user_intolerances
   request = get_user_meal_request
-  recipe_data = ApiCaller.get_random_recipe_by_search(request)
+  recipe_data = ApiCaller.get_random_recipe_by_search(request, user_diet)
   if recipe_data.nil?
     systext("\n\nNo results found for #{request}.  Check your spelling and try again!")
     enter_to_continue
