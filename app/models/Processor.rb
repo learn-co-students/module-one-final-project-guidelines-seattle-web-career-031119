@@ -25,7 +25,8 @@ class Processor
     menu_number = 1
     location_suggestions_hash.map do |itemno|
       #puts "#{menu_number}. #{locations[itemno]['title']}"
-      loc_menu_hash[menu_number] = {locations[itemno]['title'] => itemno}
+      state = API.connect("cities?city_ids=#{locations[itemno]["city_id"]}")["location_suggestions"][0]["state_name"]
+      loc_menu_hash[menu_number] = {"#{locations[itemno]['title']}, #{state}"  => itemno}
       menu_number += 1
     end
     loc_menu_hash

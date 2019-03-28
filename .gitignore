@@ -10,5 +10,6 @@ Gemfile.lock
 *.iml
 *.log
 *.swp
+*.lock
 
 db/*.db
