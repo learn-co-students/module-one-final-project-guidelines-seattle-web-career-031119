@@ -11,8 +11,7 @@ user = User.find_or_create_by(name: get_username)
 hello_user(user)
 
 loop do
-  top_menu_banner
-  list_selection_options
+  main_menu
   user_selection = get_user_selection
 
   case user_selection

@@ -2,6 +2,8 @@ OPTIONS=["Find a Recipe","Cook a Recipe", "My Shopping List", "My Saved Meals", 
 
 ABBREV_OPTIONS = ["find", "cook", "list", "meals", "exit"]
 
+MENU_MESSAGE = MenuMessage.new
+
 #--------------SYSTEM MESSAGES-------------#
 def sysbanner(title, color = SUB_BANNER_COLOR)
   system "clear"
@@ -39,11 +41,6 @@ end
 
 def exit_banner
   sysbanner("Enjoy your meal!")
-end
-
-#TODO: This doesn't belong here.
-def print_selection_title(recipe)
-  puts "Added #{recipe.title} to your meals!\n\n"
 end
 
 def separator_line
@@ -248,6 +245,12 @@ def yn(str)
   end
 end
 
+#------------MAIN MENU------------#
+def main_menu
+  top_menu_banner
+  MENU_MESSAGE.display
+  list_selection_options
+end
 
 
 #------------FINDING NEW MEAL ACTIONS-----------#
@@ -255,7 +258,7 @@ def finding_action(user)
   find_new_meal_banner
   diet_intolerance = combine_diet_intolerances
   request = get_user_meal_request
-  recipe_data = ApiCaller.get_random_recipe_by_search(request, diet_intolerance)
+  recipe_data = ApiCaller.get_random_recipe_by_search(request, diet_intolerance, user)
   if recipe_data.nil?
     systext("\n\nNo results found for #{request}.  Check your spelling and try again!")
     enter_to_continue
@@ -263,7 +266,7 @@ def finding_action(user)
   end
   recipe = Recipe.create_from_data(recipe_data)
   Meal.create(user_id: user.id, recipe_id: recipe.id, active: true, shopping: true)
-  print_selection_title(recipe)
+  MENU_MESSAGE.set_message("Added #{recipe.title} to your meals!\n\n")
 end
 
 #------------COOKING ACTIONS-----------#
@@ -297,15 +300,15 @@ end
 
 #------------MEALS ACTIONS-----------#
 def meals_actions(user)
-  message = nil
+  meal_message = nil
   loop do
     my_meals_banner
     user.print_meals
-    systext(message) if !message.nil?
+    systext(meal_message) if !meal_message.nil?
     action = meal_action
     if action == "exit"
       break
     end
-    message = user.perform(action)
+    meal_message = user.perform(action)
   end
 end
