@@ -92,11 +92,14 @@ class CLI
     end
     puts "\tquit:" + " "*(16) + "#{prompt_hash["quit"]}"
     puts "—" * 80
+    print ">"
   end
 
   def self.menu_get_input(prompt, condition=nil)
+    #binding.pry
     # Use to get a response from the user.
-    # Condition can be "alpha" (alphabetical), "number", or nil.
+    # Condition can be {"alpha" => "any"} (alphabetical), {"number" => []}, or nil.
+
     active = 1
     while active == 1 do
       puts "\n#{prompt}"
@@ -105,23 +108,27 @@ class CLI
       when condition == nil
         active = 0
         return user_response.strip
-      when condition == "alpha" && user_response.match(/^[\w\s]+$/) != nil
-        active = 0
-        return user_response.strip
-      when condition == "number" && user_response.to_i != nil
-        active = 0
-        return user_response.to_i
+      when condition.keys[0] == "alpha"
+        if user_response.match(/^[\w\s]+$/) != nil
+          active = 0
+          return user_response.strip
+        else
+          puts "No special characters please!"
+        end
+      when condition.keys[0] == "number"
+        if condition.values[0].include?(user_response.to_i)
+          active = 0
+          return user_response.to_i
+        else
+          puts "Please enter a valid number!"
+        end
       when user_response.downcase == "quit" || "exit"
         active = 0
         exit
       else
-        if condition == "alpha"
-          puts "No special characters please!"
-        elsif condition == "number"
-          puts "Only numbers please!"
-        end
         active = 0
-        #menu_get_input(prompt, condition)
+        puts "I don't really know how you got here"
+        self.menu_get_input(prompt, condition)
       end
     end
   end
@@ -137,7 +144,7 @@ class CLI
 
   def self.user_entry
     prompt = "\nPlease login by entering your first name:\n"
-    condition = "alpha"
+    condition = {"alpha" => "any"}
     username = self.menu_get_input(prompt, condition)
     @@user = User.find_or_create_by(name: username)
     puts "\nYou are now logged in as #{@@user.name.capitalize}\n"
@@ -147,7 +154,7 @@ class CLI
 
   def self.food_search
     prompt = "\nEnter a neighborhood or city name\n"
-    condition = "alpha"
+    condition = {"alpha" => "any"}
     location = self.menu_get_input(prompt, condition)
     self.choose_location(location)
   end
@@ -159,9 +166,9 @@ class CLI
     Processor.display_pretty_location_hash(pretty_location_hash)
 
     prompt = "\nEnter the number of the location you would like\n"
-    condition = "number"
+    condition = {"number" => (1..location_options_array.length).to_a }
     number = self.menu_get_input(prompt, condition)
-
+    #binding.pry
     chosen_location_index = pretty_location_hash[number].values[0]
     @@location = location_options_array[chosen_location_index]
     self.get_cuisines
@@ -177,7 +184,7 @@ class CLI
     end
 
     prompt = "Choose which cuisine you would like"
-    condition = "number"
+    condition = {"number" => (1..hash_of_cuisines.length).to_a }
     chosen_cuisine_number = self.menu_get_input(prompt, condition)
 
     @@cuisine = hash_of_cuisines[chosen_cuisine_number].keys[0]
@@ -197,7 +204,7 @@ class CLI
     end
     #needs to make multiple choice: "new search", "review one of the above rests"
     prompt = "Choose a number to review a restaurant"
-    condition = "number"
+    condition = {"number" => (1..restaurants_menu_hash.length).to_a}
     restaurant_number = self.menu_get_input(prompt, condition)
 
     @@restaurant = @@restaurants.find{|r| r['restaurant']['name'] == restaurants_menu_hash[restaurant_number].keys[0]}
@@ -218,7 +225,8 @@ class CLI
   end
 
   def self.pick_restaurant
-    pretty_restaurant_data = self.pretty_restaurant_data
-    pretty_restaurant_data.each {|line| puts "#{line}"}
+    self.pretty_restaurant_data.each {|line| puts "#{line}"}
     main_menu(["review", "back", "search", "logout"])
   end
+
+end
