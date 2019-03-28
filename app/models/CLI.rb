@@ -1,7 +1,12 @@
 class CLI
 
   @@user = nil
-  @@rest_array = nil
+  @@location = nil
+  @@cuisine = nil
+  @@restaurant = nil
+  @@restaurants = nil
+  @@restaurants_master_list = nil
+  @@reviews_hash = nil
 
   ## ------------------------------------
   ## MENU HELPER METHODS
@@ -12,11 +17,7 @@ class CLI
     dashes = ''
 
     while active == 1
-        length_of_prompt = prompt.length + 44
-        length_of_prompt.times {|x| dashed = dashes + '-'}
-        puts "\n"+ "-"*length_of_prompt
-        puts "#{prompt} Enter 'logout' to return to the login menu."
-        puts "-"*length_of_prompt + "\n"
+        self.display_prompt(prompt)
         user_response = STDIN.gets.chomp
         user_response.downcase!
         user_response.strip!
@@ -54,6 +55,10 @@ class CLI
                 active = 0
                 @@user.delete_review
 
+              when "quit"
+                active = 0
+                exit
+
               else
                 puts "\nI am not smart enough to understand that. Please enter a valid command.\n"
               end
@@ -66,18 +71,41 @@ class CLI
 
   end
 
+  def self.prompt_hash
+    {
+      "search" => "Start a new search",
+      "logout" => "Log out of your account",
+      "back" => "Go back to restaurants list",
+      "review" => "Create a review of this restaurant",
+      "see reviews" => "See all of your reviews",
+      "update review" => "Update one of your reviews",
+      "delete review" => "Delete one of your reviews",
+      "quit" => "Leave I guess"
+    }
+  end
+
+  def self.display_prompt(prompt)
+    prompt << "quit"
+    puts "—" * 80
+    puts "Would you like to:"
+    prompt.each do |line|
+      puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
+    end
+    puts "—" * 80
+  end
+
   def self.menu_get_input(prompt, condition=nil)
     # Use to get a response from the user.
     # Condition can be "alpha" (alphabetical), "number", or nil.
     active = 1
     while active == 1 do
-      puts prompt
+      puts "\n#{prompt}"
       user_response = STDIN.gets.chomp
       case
       when condition == nil
         active = 0
         return user_response.strip
-      when condition == "alpha" && user_response.match(/^[[:alpha:]]+$/) != nil
+      when condition == "alpha" && user_response.match(/^[\w\s]+$/) != nil
         active = 0
         return user_response.strip
       when condition == "number" && user_response.to_i != nil
@@ -93,7 +121,7 @@ class CLI
           puts "Only numbers please!"
         end
         active = 0
-        menu_get_input(prompt, condition)
+        #menu_get_input(prompt, condition)
       end
     end
   end
@@ -103,9 +131,7 @@ class CLI
   ## ------------------------------------
 
   def self.start
-    prompt = "\nWelcome! Enter 'Eat' to begin searching for delicous food,\nor 'Quit' to logout and quit the program.\n"
-    choices = {"eat" => user_entry}
-    # menu_multiple_choice(prompt, choices)
+    puts "\nWelcome to 'Eat or Quit' our Zomato based CLI!\n"
     self.user_entry
   end
 
@@ -116,21 +142,7 @@ class CLI
     @@user = User.find_or_create_by(name: username)
     puts "\nYou are now logged in as #{@@user.name.capitalize}\n"
     #self.user_menu
-    self.main_menu("I don't know what to do AHHHHHHH panicing!!!!")
-  end
-
-  def self.user_menu
-    prompt = "\n#{@@user.name.capitalize}, what would you like to do?\nEnter 'See Reviews', 'Search' or 'Quit' to logout.\n"
-    # #binding.pry
-    # choices = {"see reviews" => 'user.pretty_reviews',
-    #          "search" => 'food_search',
-    #          format: "alpha"}
-    # menu_multiple_choice(prompt, choices)
-
-    puts prompt
-    puts "This is not working yet, going to food_search"
-    # user.pretty_reviews
-    self.food_search
+    self.main_menu(["search", "see reviews", "logout"])
   end
 
   def self.food_search
@@ -151,13 +163,13 @@ class CLI
     number = self.menu_get_input(prompt, condition)
 
     chosen_location_index = pretty_location_hash[number].values[0]
-    chosen_location = location_options_array[chosen_location_index]
-    self.get_cuisines(chosen_location)
+    @@location = location_options_array[chosen_location_index]
+    self.get_cuisines
   end
 
-  def self.get_cuisines(chosen_location)
-    array_of_restaurants = API.get_restaurants_from_location(chosen_location)
-    hash_of_cuisines = Processor.most_occuring_cuisines(array_of_restaurants)
+  def self.get_cuisines
+    @@restaurants_master_list = API.get_restaurants_from_location(@@location)
+    hash_of_cuisines = Processor.most_occuring_cuisines(@@restaurants_master_list)
 
     hash_of_cuisines.each do |key, value|
       print "#{key}: "
@@ -167,30 +179,48 @@ class CLI
     prompt = "Choose which cuisine you would like"
     condition = "number"
     chosen_cuisine_number = self.menu_get_input(prompt, condition)
-    chosen_cuisine = hash_of_cuisines[chosen_cuisine_number].keys[0]
-    self.get_restaurants(chosen_cuisine, array_of_restaurants)
+
+    @@cuisine = hash_of_cuisines[chosen_cuisine_number].keys[0]
+    self.get_restaurants
   end
 
-  def self.get_restaurants(chosen_cuisine, array_of_restaurants)
-    restaurants_matching_cuisine = array_of_restaurants.select {|rest| rest["restaurant"]["cuisines"].include?(chosen_cuisine)}
-    restaurants_matching_cuisine = restaurants_matching_cuisine.sort { |l, r| r["restaurant"]["user_rating"]["aggregate_rating"] <=> l["restaurant"]["user_rating"]["aggregate_rating"] }
-    # binding.pry
-    matching_restaurants_hash = Hash.new
-    restaurants_matching_cuisine.each.with_index(1) do |rest, index|
-      matching_restaurants_hash[index] = {rest["restaurant"]["name"] => rest["restaurant"]["user_rating"]["aggregate_rating"]}
+  def self.get_restaurants
+    @@restaurants = @@restaurants_master_list.select {|rest| rest["restaurant"]["cuisines"].include?(@@cuisine)}
+    @@restaurants.sort_by! { |r| r["restaurant"]["user_rating"]["aggregate_rating"].to_f*-1 }
+    restaurants_menu_hash = Hash.new
+    @@restaurants.each.with_index(1) do |rest, index|
+      restaurants_menu_hash[index] = {rest["restaurant"]["name"] => rest["restaurant"]["user_rating"]["aggregate_rating"]}
     end
-    matching_restaurants_hash.each do |key, value|
+    restaurants_menu_hash.each do |key, value|
       print "#{key}: "
-      value.each {|key, value| puts "#{key}, Average Rating: #{value}\n"}
+      value.each {|key, value| puts "#{key}, (#{value} avg rating)\n"}
     end
     #needs to make multiple choice: "new search", "review one of the above rests"
     prompt = "Choose a number to review a restaurant"
     condition = "number"
     restaurant_number = self.menu_get_input(prompt, condition)
 
-    chosen_restaurant = matching_restaurants_hash[restaurant_number].keys[0]
-    # binding.pry
-    self.make_review(chosen_restaurant)
+    @@restaurant = @@restaurants.find{|r| r['restaurant']['name'] == restaurants_menu_hash[restaurant_number].keys[0]}
+    self.pick_restaurant
+  end
+
+  def self.pretty_restaurant_data
+    ["—"*80,
+     "Restaurant:                  #{@@restaurant['restaurant']['name']}",
+     "—"*80,
+     "Cuisine(s):                  #{@@restaurant['restaurant']['cuisines']}",
+     "Average Rating:              #{@@restaurant['restaurant']['user_rating']['aggregate_rating']}",
+     "Locality:                    #{@@restaurant['restaurant']['location']['locality']}",
+     "Price Range:                 " + '$'*@@restaurant['restaurant']['price_range'].to_i,
+     "Average Cost for Two:        $#{@@restaurant['restaurant']['average_cost_for_two'].to_i}",
+     "Address:                     #{@@restaurant['restaurant']['location']['address']}"
+  ]
+  end
+
+  def self.pick_restaurant
+    pretty_restaurant_data = self.pretty_restaurant_data
+    pretty_restaurant_data.each {|line| puts "#{line}"}
+    main_menu(["review", "back", "search", "logout"])
   end
 
   def self.make_review(chosen_restaurant)
