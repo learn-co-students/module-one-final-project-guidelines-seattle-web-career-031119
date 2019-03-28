@@ -22,7 +22,7 @@ class Cli
     player = Player.find_by(username: @username)
     menu_choice = nil
 
-    until menu_choice == "4"
+    until menu_choice == "5"
       self.display_menu_choices
       menu_choice = gets.chomp
       puts
@@ -45,9 +45,10 @@ class Cli
           puts "Your average score is: #{player.get_players_avg_score}"
         end
         puts
-      # when "4"
-      #   self.get_username
       when "4"
+        self.get_username
+        break
+      when "5"
         nil
       else
         puts "Please select a valid input:"
@@ -60,8 +61,8 @@ class Cli
     puts "1. Play a game"
     puts "2. See your high score"
     puts "3. See your average score"
-    # puts "4. Change player profile"
-    puts "4. Exit game"
+    puts "4. Change player profile"
+    puts "5. Exit game"
     puts
   end
 
