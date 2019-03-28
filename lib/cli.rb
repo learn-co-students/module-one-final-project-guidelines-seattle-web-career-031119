@@ -27,7 +27,7 @@ class Cli
     player = Player.find_by(username: @username)
     menu_choice = nil
 
-    until menu_choice == "5"
+    until menu_choice == "6"
       self.display_menu_choices
       menu_choice = gets.chomp
       puts
@@ -54,6 +54,8 @@ class Cli
         self.get_username
         break
       when "5"
+        self.display_leaderboard
+      when "6"
         puts "-----------------------------"
         puts "Thanks for playin! Peace out!"
         puts "-----------------------------"
@@ -70,6 +72,7 @@ class Cli
     puts "2. See your high score"
     puts "3. See your average score"
     puts "4. Change player profile"
+    puts "5. View Leaderboard"
     puts "5. Exit game"
     puts
   end
@@ -87,6 +90,11 @@ class Cli
     string
   end
 
+  def self.display_leaderboard
+    leaderarray = Player.leaderboard
+    binding.pry
+  end
+
   def self.header
     puts Paint%["============================ I %{heart} THE 90s ============================", :cyan, :bright, heart: ["<3", :magenta]]
   end
@@ -94,5 +102,6 @@ class Cli
   def self.line(character, length)
     puts character*length
   end
+
 
 end
