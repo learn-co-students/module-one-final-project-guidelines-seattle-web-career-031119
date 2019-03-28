@@ -39,6 +39,7 @@ class Api
   ]
 
   def self.add_most_lyric_and_title_to_song_info
+    progressbar = ProgressBar.create(:title => "Loading Game", :starting_at => Lyric.count, :total => @songs_array.count)
     @songs_array.each do |song_info|
       url ="https://api.lyrics.ovh/v1/#{song_info[:artist].gsub(' ', '%20')}/#{song_info[:title].gsub(' ', '%20')}"
       title_exists = Lyric.find_by(song_title: song_info[:title])
@@ -48,8 +49,10 @@ class Api
         lines = JSON.parse(lyrics)["lyrics"].split("\n").reject!(&:empty?)
         freq = lines.inject(Hash.new(0)) {|h,v| h[v] += 1; h}
         song_info[:most_lyric] = lines.max_by {|v| freq[v]}
+        1.times {progressbar.increment}
       end
     end
+    system "clear"
   end
 
 

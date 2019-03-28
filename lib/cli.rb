@@ -35,6 +35,7 @@ class Cli
 
       case menu_choice
       when "1"
+        system "clear"
         self.start_a_game(player)
       when "2"
         if player.get_player_scores.empty?
