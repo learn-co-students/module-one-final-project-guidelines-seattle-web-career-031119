@@ -206,13 +206,13 @@ def finding_action(user)
   user_diet = get_user_diet
   # user_intolerances = get_user_intolerances
   request = get_user_meal_request
-  recipe_data = ApiCaller.get_random_recipe_by_search(request, user_diet)
+  recipe_data = ApiCaller.get_random_recipe_by_search(request, user_diet, user)
   if recipe_data.nil?
     systext("\n\nNo results found for #{request}.  Check your spelling and try again!")
     enter_to_continue
     return
   end
-  recipe = Recipe.create_from_data(recipe_data.body)
+  recipe = Recipe.create_from_data(recipe_data)
   Meal.create(user_id: user.id, recipe_id: recipe.id, active: true, shopping: true)
   print_selection_title(recipe)
 end
