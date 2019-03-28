@@ -45,26 +45,33 @@ class User < ActiveRecord::Base
   def print_meals
     meals.reset
     puts separator_line
-    table = []
+    table = TTY::Table.new
+    table << ["Index", "Title", "Status", "On Shopping List?", "Rating", "Notes"].map{|item|
+      ptext(item)
+     }
     meals.each_with_index do |meal, index|
-      table << {
-        Index: index+1,
-        Title: meal.recipe.title,
-        Status: meal.active == false ? "Cooked" : "Awaiting Cooking",
-        "On Shopping List?": meal.shopping == true ? "Yes" : "No",
-        Rating: meal.rating,
-        Notes: !meal.notes.nil? ? meal.notes : "None."
-
-      }
+      table << [
+        index+1,
+        meal.recipe.title,
+        meal.active == false ? "Cooked" : "Awaiting Cooking",
+        meal.shopping == true ? "Yes" : "No",
+        !meal.rating.nil? ? meal.rating.to_5_stars : "[Unrated]",
+        !meal.notes.nil? ? meal.notes.max_line_length(50) : "None."
+      ]
     end
-    Formatador.display_table(table, [:Index, :Title, :Status, :"On Shopping List?", :Rating, :Notes])
+
+    putable = table.render(:ascii, multiline: true, padding: [1,1,1,1]) do |renderer|
+      renderer.border.separator = TTY::Table::Border::EACH_ROW
+    end
+    puts putable
   end
 
   def rate(index)
+    binding.pry
     loop do
       rating = gets.chomp.to_i
       if rating > 0 && rating <= 5
-        meals[index].update(rating: rating)
+        get_active_meals[index].update(rating: rating)
         break
       else
         puts "Please enter a number between 1 and 5."
@@ -73,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def annotate(index)
-    meals[index].update(notes: gets.chomp)
+    get_active_meals[index].update(notes: gets.chomp)
   end
 
   def perform(action)

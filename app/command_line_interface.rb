@@ -12,6 +12,10 @@ def systext(text, color = SYSCOLOR)
   puts Paint[text, SYSCOLOR, :bold]
 end
 
+def ptext(text, color = :red)
+  PASTEL.decorate(text, color, :bold)
+end
+
 def welcome
   system "clear"
   sysbanner("Welcome To Mealworm!", :cyan)
@@ -183,13 +187,13 @@ def cooking_actions(user)
   meal_choice = get_user_meal_choice
   recipe = user.get_recipe_by_choice(meal_choice)
   recipe.walk_through_steps
-  user.set_cooked(meal_choice)
   if rate_and_annotate?
     systext("Rating (1-5):")
     user.rate(meal_choice)
     systext("\n\nNotes:")
     user.annotate(meal_choice)
   end
+  user.set_cooked(meal_choice)
   enter_to_continue
 end
 #------------SHOPPING LIST ACTIONS-----------#
