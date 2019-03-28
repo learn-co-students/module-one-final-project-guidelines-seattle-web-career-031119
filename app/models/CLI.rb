@@ -2,8 +2,6 @@ class CLI
 
   @@user = nil
 
-  @@reviews_hash = nil
-
   ## ------------------------------------
   ## MENU HELPER METHODS
   ## ------------------------------------
@@ -175,27 +173,28 @@ class CLI
 
   def self.print_single_review(review_obj)
     ## prints out the passed review
-    puts "Your new review: #{review_obj.restaurant.name}"
+    puts "\nYour new review: #{review_obj.restaurant.name}"
     puts "\tRating: #{review_obj.rating}"
-    puts "\tReview: #{review_obj.message}"
+    puts "\tReview: #{review_obj.message}\n"
   end
 
   def self.make_review_hash
     #create a hash of all reviews with numerical keys
-    @@reviews_hash = User.all[2].reviews.each.with_index(1) {|review, index|
-      reviews_hash[index] = [review.restaurant.name, review.rating, review.message]
+    @@reviews_hash = {}
+    @@user.reviews.each.with_index(1) {|review, index|
+      @@reviews_hash[index] = [review.restaurant.name, review.rating, review.message]
     }
   end
 
   def self.get_rating
     ## prompt user for resto's rating
-    puts "What would you rate this restaurant? (1-5)"
-    STDIN.gets.strip.to_i
+    prompt = "What would you rate this restaurant? (1-5)"
+    menu_get_input(prompt, "number")
   end
 
   def self.get_message
     ## prompt user for review message
-    puts "Please write a brief review"
+    puts "\nPlease write a brief review."
     STDIN.gets.strip
   end
 
@@ -210,7 +209,7 @@ class CLI
     }
     #find review by resto name
     @@user.reviews.find {|review|
-      review.restaurant == restaurant_name
+      review.restaurant.name == restaurant_name
     }
   end
 
@@ -226,9 +225,8 @@ class CLI
     review = Review.create(user: User.all[2], restaurant: restaurant, rating: rating, message: message)
     ## show the user their new review
     self.print_single_review(review)
-    ## ask user where they want to go next - add more options?
-    prompt = "Type <search> to start a new restaurant search, <reviews> to view all of your reviews, ... "
-    ##name of menu method
+    ## ask user where they want to go next
+    prompt = ["search", "see review", "logout"]
     main_menu(prompt)
   end
 
@@ -240,31 +238,31 @@ class CLI
       puts "#{key}: #{value[0]} \n\t Rating: #{value[1]} \n\t Review: #{value[2]}"
       puts "-------------------------------------"
     }
-    ## ask user what they want to do next - add more options?
-    prompt = "Type <edit> to edit one of your reviews, <delete> to delete a review, or <search> to start a new restaurant search..."
+    ## ask user where they want to go next
+    prompt = ["search", "update review", "delete review", "logout"]
     main_menu(prompt)
   end
 
   def self.update_review
-    prompt =  "Type number of review you wish to edit"
-    review_num = STDIN.gets.strip
+    puts "Type number of review you wish to edit"
+    review_num = self.menu_get_input(prompt, "number")
     # get the right review from the index the user gave
     review = self.find_review_from_user_input(review_num)
     ## get new rating and message
     rating = self.get_rating
     message = self.get_message
     ## update those fields in the database
-    new_review = review_choice.update(rating: rating, message: message)
+    review.update(rating: rating, message: message)
     ##print out new version of review
-    self.print_single_review(new_review)
-    ## ask user what they want to do next - add more options?
-    prompt = "Type <reviews> to see all of your reviews or <search> to start a new restaurant search."
+    self.print_single_review(review)
+    ## ask user where they want to go next
+    prompt = ["search", "see review", "logout"]
     main_menu(prompt)
   end
 
   def self.delete_review
     prompt =  "Type number of review you wish to delete"
-    review_num = STDIN.gets.strip
+    review_num = self.menu_get_input(prompt, "number")
     # get the right review from the index the user gave
     review = self.find_review_from_user_input(review_num)
     ## let the user know what they deleted
@@ -272,12 +270,9 @@ class CLI
     self.print_single_review(review)
     ## delete it
     review.delete
-    ## ask user what they want to do next - add more options?
-    prompt = "Type <reviews> to see all of your reviews or <search> to start a new restaurant search."
+    ## ask user where they want to go next
+    prompt = ["search", "see review", "logout"]
     main_menu(prompt)
   end
 
 end
-
-
-### DON'T FORGET TO CHANGE USER.ALL TO @@USER!!!!!!!!
