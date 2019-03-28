@@ -22,7 +22,7 @@ class CLI
         user_response.downcase!
         user_response.strip!
 
-        if user_response.match(/^[[:alpha:]]+$/) != nil #check if special characters are present in user input
+        if user_response.match(/^[\w\s]+$/) != nil #check if special characters are present in user input
               case user_response
 
               when "logout"
@@ -53,7 +53,7 @@ class CLI
 
               when "delete review"
                 active = 0
-                @@user.delete_review
+                self.delete_review
 
               when "quit"
                 active = 0
@@ -275,8 +275,6 @@ class CLI
 ## CRUD METHODS -----------------------------------------------------------------------
 
   def self.create_review
-    ## chosen_restaurant = string of restaurant name!!!!
-    ##-----------------------------------------------
     rating = self.get_rating
     message = self.get_message
     ## make restaurant object and review object and save to our tables
@@ -285,7 +283,7 @@ class CLI
     ## show the user their new review
     self.print_single_review(review)
     ## ask user where they want to go next
-    prompt = ["search", "see review", "logout"]
+    prompt = ["search", "see reviews", "logout"]
     main_menu(prompt)
   end
 
@@ -303,7 +301,7 @@ class CLI
   end
 
   def self.update_review
-    puts "Type number of review you wish to edit"
+    prompt = "Type number of review you wish to edit"
     review_num = self.menu_get_input(prompt, "number")
     # get the right review from the index the user gave
     review = self.find_review_from_user_input(review_num)
@@ -315,7 +313,7 @@ class CLI
     ##print out new version of review
     self.print_single_review(review)
     ## ask user where they want to go next
-    prompt = ["search", "see review", "logout"]
+    prompt = ["search", "see reviews", "logout"]
     main_menu(prompt)
   end
 
@@ -330,7 +328,7 @@ class CLI
     ## delete it
     review.delete
     ## ask user where they want to go next
-    prompt = ["search", "see review", "logout"]
+    prompt = ["search", "see reviews", "logout"]
     main_menu(prompt)
   end
 
