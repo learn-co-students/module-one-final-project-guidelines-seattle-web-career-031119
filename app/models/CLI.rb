@@ -274,13 +274,13 @@ class CLI
 
 ## CRUD METHODS -----------------------------------------------------------------------
 
-  def self.create_review(chosen_restaurant)
+  def self.create_review
     ## chosen_restaurant = string of restaurant name!!!!
     ##-----------------------------------------------
     rating = self.get_rating
     message = self.get_message
     ## make restaurant object and review object and save to our tables
-    restaurant = Restaurant.find_or_create_by(name: chosen_restaurant)
+    restaurant = Restaurant.find_or_create_by(name: @@restaurant['restaurant']['name'])
     review = Review.create(user: User.all[2], restaurant: restaurant, rating: rating, message: message)
     ## show the user their new review
     self.print_single_review(review)
