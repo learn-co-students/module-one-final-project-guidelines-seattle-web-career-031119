@@ -73,7 +73,7 @@ class Cli
     puts "3. See your average score"
     puts "4. Change player profile"
     puts "5. View Leaderboard"
-    puts "5. Exit game"
+    puts "6. Exit game"
     puts
   end
 
@@ -92,7 +92,10 @@ class Cli
 
   def self.display_leaderboard
     leaderarray = Player.leaderboard
-    binding.pry
+    table = Terminal::Table.new:title => "Leaderboard", :headings => ['Player', 'Score'], :rows => leaderarray, :style => {:width => 40}
+    table.style = {:width => 40, :padding_left => 3, :border_x => "=", :border_i => "x"}
+    puts table
+    puts
   end
 
   def self.header
