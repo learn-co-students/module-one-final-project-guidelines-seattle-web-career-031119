@@ -106,9 +106,9 @@ class CLI
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
-    puts "\tquit:" + " "*(16) + "#{prompt_hash["quit"]}"
+    puts "\tquit: " + " "*16 + "#{prompt_hash['quit']}"
     puts "—" * 80
-    print ">"
+    print "> "
   end
 
   def self.menu_get_input(prompt, condition=nil)
