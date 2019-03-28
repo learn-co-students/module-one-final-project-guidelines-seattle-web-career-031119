@@ -27,7 +27,7 @@ class Round < ActiveRecord::Base
     answer_options_array = self.randomize_answers(lyric_i)
     (0..3).each do |i|
       puts "           ------------------------------------------------"
-      puts "              #{Paint[answer_options_array[i], :blue]}"
+      puts "              #{Paint[answer_options_array[i], :cyan]}"
       puts "           ------------------------------------------------"
       end
     answer_options_array[4]
@@ -38,10 +38,10 @@ class Round < ActiveRecord::Base
     @remaining_lyric_i.delete(lyric_i)
 
     guess_this_lyric = "\"#{Lyric.find(lyric_i)[:most_lyric]}\""
-    guess_this_lyric = Cli.fit_length(guess_this_lyric, 70)
+    guess_this_lyric = Cli.fit_length(guess_this_lyric, 70, ' ')
 
     puts
-    puts Paint%["============================ I %{heart} THE 90s ============================", :cyan, :bright, heart: ["<3", :magenta]]
+    puts Cli.header
     puts
     puts
     puts "============================== Round #{round_counter} ==============================="
@@ -66,8 +66,8 @@ class Round < ActiveRecord::Base
     end
 
     if user_answer.downcase == correct_answer
-      correct_comment = ["You're all that and a bag of chips!", "BOO YA!", "You da bomb!", "Great job home skillet!", "You got it, dude!", "Correctamundo!"].sample
-      correct_comment = Cli.fit_length(correct_comment, 70)
+      correct_comment = ["You're all that and a bag of chips!", "BOO YA!", "You da bomb!", "Great job home skillet!", "You got it, dude!", "Correctamundo!", "WHOOMP! There it is!"].sample
+      correct_comment = Cli.fit_length(correct_comment, 70, ' ')
 
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :green]
@@ -77,8 +77,8 @@ class Round < ActiveRecord::Base
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :green]
       round = Round.update(self.id, :score => 5)
     else
-      incorrect_comment = ["As if!", "Talk to the hand!", "That's right ...NOT!!", "Like, totally not even close.", "Ugh, whatever..."].sample
-      incorrect_comment = Cli.fit_length(incorrect_comment, 70)
+      incorrect_comment = ["As if!", "Talk to the hand!", "That's right ...NOT!!", "Like, totally not even close.", "Ugh, whatever...", "Check yo self before you wreck yo self!"].sample
+      incorrect_comment = Cli.fit_length(incorrect_comment, 70, ' ')
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :red]
       puts

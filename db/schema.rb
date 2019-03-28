@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20190326175114) do
   create_table "lyrics", force: :cascade do |t|
     t.string "artist_name"
     t.string "most_lyric"
+    t.string "song_title"
   end
 
   create_table "players", force: :cascade do |t|
