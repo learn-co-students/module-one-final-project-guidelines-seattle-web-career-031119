@@ -29,6 +29,6 @@ end
 class String
   def max_line_length(num)
     return self if self.length < num
-    self.scan(/.{#{num}}/).join("\n")
+    self.scan(/.{1,#{num}}/).join("\n")
   end
 end

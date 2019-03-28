@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
 
   def print_active_meals
     puts separator_line
-    puts Paint["Please select a recipe to cook:", SYSCOLOR, :bold]
+    puts systext("Please select a recipe to cook by entering its index:")
     table = []
     get_active_meals.each_with_index do |meal, i|
       table << {Index: i+1, Title: meal.recipe.title}
@@ -67,7 +67,6 @@ class User < ActiveRecord::Base
   end
 
   def rate(index)
-    binding.pry
     loop do
       rating = gets.chomp.to_i
       if rating > 0 && rating <= 5

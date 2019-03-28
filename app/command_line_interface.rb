@@ -75,8 +75,7 @@ def hello_user(user)
   }
   table_two << {Last_Meal_Added: latest_meal_output}
   puts separator_line
-  puts "HELLO #{user.name.upcase}!"
-  puts separator_line
+  systext("HELLO, #{user.name.upcase}!")
   puts Formatador.display_table(table_one)
   puts separator_line
   puts Formatador.display_table(table_two)
@@ -168,7 +167,16 @@ def meal_action
 end
 
 def get_user_selection
-  choice = ABBREV_OPTIONS[gets.chomp.to_i-1]
+  choice = 0
+  loop do
+    choice = gets.chomp.to_i-1
+    if choice > 0 && choice < OPTIONS.count
+      break
+    else
+      systext("You can only select an option between 1 and #{OPTIONS.count}")
+    end
+  end
+  ABBREV_OPTIONS[choice]
 end
 
 def rate_and_annotate?
