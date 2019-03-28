@@ -38,8 +38,8 @@ class Round < ActiveRecord::Base
     @remaining_lyric_i.delete(lyric_i)
 
     guess_this_lyric = "\"#{Lyric.find(lyric_i)[:most_lyric]}\""
-    guess_this_lyric = Cli.fit_length(guess_this_lyric, 70, ' ')
-
+    guess_this_lyric = Cli.fit_length(guess_this_lyric, ' ')
+    system "clear"
     puts
     puts Cli.header
     puts
@@ -67,7 +67,7 @@ class Round < ActiveRecord::Base
 
     if user_answer.downcase == correct_answer
       correct_comment = ["You're all that and a bag of chips!", "BOO YA!", "You da bomb!", "Great job home skillet!", "You got it, dude!", "Correctamundo!", "WHOOMP! There it is!"].sample
-      correct_comment = Cli.fit_length(correct_comment, 70, ' ')
+      correct_comment = Cli.fit_length(correct_comment, ' ')
 
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :green]
@@ -75,10 +75,10 @@ class Round < ActiveRecord::Base
       puts Paint[correct_comment, :green, :bright]
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :green]
-      round = Round.update(self.id, :score => 5)
+      round = Round.update(self.id, :score => 20)
     else
       incorrect_comment = ["As if!", "Talk to the hand!", "That's right ...NOT!!", "Like, totally not even close.", "Ugh, whatever...", "Check yo self before you wreck yo self!"].sample
-      incorrect_comment = Cli.fit_length(incorrect_comment, 70, ' ')
+      incorrect_comment = Cli.fit_length(incorrect_comment, ' ')
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :red]
       puts
@@ -87,7 +87,7 @@ class Round < ActiveRecord::Base
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :red]
     end
     sleep(2)
-    system "clear"
+    # system "clear"
   end
 
 end

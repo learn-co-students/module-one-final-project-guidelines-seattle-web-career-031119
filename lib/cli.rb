@@ -3,11 +3,16 @@ require_relative '../config/environment.rb'
 class Cli
   attr_accessor :username
 
+  @game_width = 70
+
   def self.welcome_message
     puts
     puts self.header
+    self.header
+    puts
     puts
     puts self.line('*', 70)
+    self.line('*')
     puts
     puts "How 90's are you?"
     puts
@@ -40,6 +45,7 @@ class Cli
       when "2"
         if player.get_player_scores.empty?
           puts "You haven't played a game!"
+          puts "You haven't played a game yet!"
         else
           puts "Your high score is: #{player.get_player_scores.max}"
         end
@@ -47,6 +53,7 @@ class Cli
       when "3"
         if player.get_player_scores.empty?
           puts "You haven't played a game!"
+          puts "You haven't played a game yet!"
         else
           puts "Your average score is: #{player.get_players_avg_score}"
         end
@@ -60,6 +67,17 @@ class Cli
         puts "-----------------------------"
         puts "Thanks for playin! Peace out!"
         puts "-----------------------------"
+        system "clear"
+        puts
+        self.header
+        puts
+        self.line('#')
+        puts
+        puts self.fit_length("Thanks for playin!", ' ')
+        puts
+        puts self.fit_length("PEACE OUT!", ' ')
+        puts
+        self.line('#')
         puts
       else
         puts "Please select a valid input:"
@@ -68,6 +86,7 @@ class Cli
   end
 
   def self.display_menu_choices
+    self.line('-')
     puts "Choose an option:"
     puts "1. Play a game"
     puts "2. See your high score"
@@ -85,6 +104,8 @@ class Cli
 
   def self.fit_length(string, the_length, character)
     until string.length >= the_length
+  def self.fit_length(string, character)
+    until string.length >= @game_width
       string.prepend(character)
       string << character
     end
@@ -105,6 +126,8 @@ class Cli
 
   def self.line(character, length)
     puts character*length
+  def self.line(character)
+    puts character * @game_width
   end
 
 

@@ -25,14 +25,17 @@ class Game < ActiveRecord::Base
 
     scores = Round.where(game_id: self.id).collect {|a_round| a_round[:score]}
     total_score = scores.inject(0) {|score, sum| sum + score}
+    system "clear"
     puts
     puts Cli.header
     puts
     puts "======================================================================"
     puts
     puts Cli.fit_length("Nice game dude!", 70, ' ')
+    puts Cli.fit_length("Nice game dude!", ' ')
     puts
     puts Cli.fit_length("Your final score is: #{total_score}", 70, ' ')
+    puts Cli.fit_length("Your final score is: #{total_score}", ' ')
     puts
     puts "======================================================================"
     puts
