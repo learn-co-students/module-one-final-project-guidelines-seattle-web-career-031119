@@ -15,12 +15,27 @@ class Player < ActiveRecord::Base
     end
   end
 
-  def self.leaderboard
-    top_players_hash ={}
-    self.all.each {|player| top_players_hash[player] = player.get_player_high_score}
-    top_players_hash.delete_if {|k, v| v.nil?}
+  # def self.leaderboard
+  #   top_players_hash ={}
+  #   self.all.each {|player| top_players_hash[player] = player.get_player_high_score}
+  #   top_players_hash.delete_if {|k, v| v.nil?}
+  #
+  #   sorted_arr = top_players_hash.sort_by {|key, value| value}.reverse
+  #   sorted_arr.count < 5 ? leader_count = sorted_arr.count : leader_count = 5
+  #
+  #   return_arr = []
+  #   (0...leader_count).each do |num|
+  #     return_arr << [[sorted_arr[num][0].username][0], sorted_arr[num][1]]
+  #   end
+  #   return_arr
+  # end
 
-    sorted_arr = top_players_hash.sort_by {|key, value| value}.reverse
+  def self.leaderboard
+    averages_hash = {}
+    self.all.each {|player| averages_hash[player] = player.get_players_avg_score}
+    averages_hash.delete_if {|k, v| v.nan?}
+
+    sorted_arr = averages_hash.sort_by {|key, value| value}.reverse
     sorted_arr.count < 5 ? leader_count = sorted_arr.count : leader_count = 5
 
     return_arr = []
@@ -28,7 +43,7 @@ class Player < ActiveRecord::Base
       return_arr << [[sorted_arr[num][0].username][0], sorted_arr[num][1]]
     end
     return_arr
-  end
+    end
 
   def get_player_scores
     games = self.games.uniq

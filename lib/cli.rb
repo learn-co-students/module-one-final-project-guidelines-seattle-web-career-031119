@@ -19,6 +19,7 @@ class Cli
   def self.get_username
     puts "Please enter your username:"
     @username = gets.chomp
+    system "clear"
     Player.find_or_create_player(@username)
     self.menu
   end
@@ -38,6 +39,7 @@ class Cli
         system "clear"
         self.start_a_game(player)
       when "2"
+        system "clear"
         if player.get_player_scores.empty?
           puts "You haven't played a game!"
         else
@@ -45,6 +47,7 @@ class Cli
         end
         puts
       when "3"
+        system "clear"
         if player.get_player_scores.empty?
           puts "You haven't played a game!"
         else
@@ -52,9 +55,11 @@ class Cli
         end
         puts
       when "4"
+        system "clear"
         self.get_username
         break
       when "5"
+        system "clear"
         self.display_leaderboard
       when "6"
         puts "-----------------------------"
@@ -73,7 +78,7 @@ class Cli
     puts "2. See your high score"
     puts "3. See your average score"
     puts "4. Change player profile"
-    puts "5. View Leaderboard"
+    puts "5. View Leaderboard (Highest Average Scores)"
     puts "6. Exit game"
     puts
   end
@@ -93,7 +98,7 @@ class Cli
 
   def self.display_leaderboard
     leaderarray = Player.leaderboard
-    table = Terminal::Table.new:title => "Leaderboard", :headings => ['Player', 'Score'], :rows => leaderarray, :style => {:width => 40}
+    table = Terminal::Table.new:title => "Leaderboard (Best Average)", :headings => ['Player', 'Score'], :rows => leaderarray, :style => {:width => 40}
     table.style = {:width => 40, :padding_left => 3, :border_x => "=", :border_i => "x"}
     puts table
     puts
