@@ -18,12 +18,14 @@ class Player < ActiveRecord::Base
   def self.leaderboard
     top_players_hash ={}
     self.all.each {|player| top_players_hash[player] = player.get_player_high_score}
-    sorted_arr = top_players_hash.sort_by {|key, value| value}.reverse
+    top_players_hash.delete_if {|k, v| v.nil?}
 
-    self.count < 5 ? leader_index = self.count : leader_index = 5
+    sorted_arr = top_players_hash.sort_by {|key, value| value}.reverse
+    sorted_arr.count < 5 ? leader_count = sorted_arr.count : leader_count = 5
+
     return_arr = []
-    (0...leader_index).each do |num|
-      return_arr << [[sorted_arr[num][0].username], sorted_arr[num][1]]
+    (0...leader_count).each do |num|
+      return_arr << [[sorted_arr[num][0].username][0], sorted_arr[num][1]]
     end
     return_arr
   end
