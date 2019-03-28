@@ -104,15 +104,19 @@ class CLI
       case
       when condition == nil
         active = 0
+        system "clear"
         return user_response.strip
       when condition == "alpha" && user_response.match(/^[\w\s]+$/) != nil
         active = 0
+        system "clear"
         return user_response.strip
       when condition == "number" && user_response.to_i != nil
         active = 0
+        system "clear"
         return user_response.to_i
       when user_response.downcase == "quit" || "exit"
         active = 0
+        system "clear"
         exit
       else
         if condition == "alpha"
