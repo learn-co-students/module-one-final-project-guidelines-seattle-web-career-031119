@@ -5,30 +5,17 @@ class Player < ActiveRecord::Base
   def self.find_or_create_player(username)
     player_exists = self.find_by(username: username)
     if player_exists
+      puts
       puts "Welcome back, #{player_exists.username}!"
       puts
       player_exists
     else
+      puts
       player = self.create(username: username)
       puts "Welcome, #{player.username}!"
       puts
     end
   end
-
-  # def self.leaderboard
-  #   top_players_hash ={}
-  #   self.all.each {|player| top_players_hash[player] = player.get_player_high_score}
-  #   top_players_hash.delete_if {|k, v| v.nil?}
-  #
-  #   sorted_arr = top_players_hash.sort_by {|key, value| value}.reverse
-  #   sorted_arr.count < 5 ? leader_count = sorted_arr.count : leader_count = 5
-  #
-  #   return_arr = []
-  #   (0...leader_count).each do |num|
-  #     return_arr << [[sorted_arr[num][0].username][0], sorted_arr[num][1]]
-  #   end
-  #   return_arr
-  # end
 
   def self.leaderboard
     averages_hash = {}

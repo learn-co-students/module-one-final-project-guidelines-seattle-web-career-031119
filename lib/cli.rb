@@ -10,17 +10,31 @@ class Cli
     self.header
     puts
     puts
-    self.line('*')
+    self.line("#{Paint['/', :yellow]}")
+    self.line("#{Paint['\\', :cyan]}")
+    self.line("#{Paint['/', :magenta]}")
     puts
-    puts "How 90's are you?"
+    puts Paint[self.fit_length("How 90's are you?", ' '), :cyan, :bright]
     puts
-    puts "Test your 90s music knowledge"
+    puts Paint[self.fit_length("Test your 90's music knowledge", ' '), :magenta, :bright]
+    puts
+    puts self.fit_length("There are 5 rounds", ' ')
+    puts self.fit_length("Each round is worth 20 points", ' ')
+    puts self.fit_length("Get 100 points and be the dopest homie on da block!", ' ')
+    puts self.fit_length("Let's get jiggy with it!", ' ')
+    puts
+    self.line("#{Paint['\\', :magenta]}")
+    self.line("#{Paint['/', :yellow]}")
+    self.line("#{Paint['\\', :cyan]}")
     puts
     self.get_username
   end
 
   def self.get_username
-    puts "Please enter your username:"
+    puts "Ready to play?"
+    puts
+    puts Paint["Enter your username:", :inverse]
+    puts
     @username = gets.chomp
     system "clear"
     Player.find_or_create_player(@username)
@@ -44,26 +58,30 @@ class Cli
       when "2"
         system "clear"
         if player.get_player_scores.empty?
-          puts "You haven't played a game yet!"
+          puts
+          puts "You haven't played a game yet! Duh!"
         else
+          puts
           puts "Your high score is: #{player.get_player_scores.max}"
         end
         puts
       when "3"
         system "clear"
         if player.get_player_scores.empty?
-          puts "You haven't played a game yet!"
+          puts
+          puts "You haven't played a game yet! Duh!"
         else
+          puts
           puts "Your average score is: #{player.get_players_avg_score}"
         end
         puts
       when "4"
         system "clear"
-        self.get_username
-        break
+        self.display_leaderboard
       when "5"
         system "clear"
-        self.display_leaderboard
+        self.get_username
+        break
       when "6"
         system "clear"
         puts
@@ -71,9 +89,11 @@ class Cli
         puts
         self.line('#')
         puts
+        puts
         puts self.fit_length("Thanks for playin!", ' ')
         puts
         puts self.fit_length("PEACE OUT!", ' ')
+        puts
         puts
         self.line('#')
         puts
@@ -84,14 +104,23 @@ class Cli
   end
 
   def self.display_menu_choices
-    self.line('-')
-    puts "Choose an option:"
-    puts "1. Play a game"
-    puts "2. See your high score"
-    puts "3. See your average score"
-    puts "4. Change player profile"
-    puts "5. View Leaderboard (Highest Average Scores)"
-    puts "6. Exit game"
+    self.line('=')
+    puts
+    puts Paint["Choose an option:", :inverse]
+    puts
+    puts " 1. Play a game"
+    puts
+    puts " 2. See your high score"
+    puts
+    puts " 3. See your average score"
+    puts
+    puts " 4. View Leaderboard (Highest Average Scores)"
+    puts
+    puts " 5. Change player"
+    puts
+    puts " 6. Exit game"
+    puts
+    self.line('=')
     puts
   end
 
@@ -117,7 +146,7 @@ class Cli
   end
 
   def self.header
-    puts Paint%["============================ I %{heart} THE 90s ============================", :cyan, :bright, heart: ["<3", :magenta]]
+    puts Paint%["============================ I %{heart} THE 90's ============================", :cyan, :bright, heart: ["<3", :magenta]]
   end
 
   def self.line(character)
