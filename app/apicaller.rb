@@ -7,7 +7,7 @@ class ApiCaller
     }
   end
 
-  def self.get_random_recipe_by_search(search, diet_intolerance_syntax)
+  def self.get_random_recipe_by_search(search, diet_intolerance_syntax, user)
     if diet_intolerance_syntax == ""
       response = Unirest.get "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?number=100&offset=0&instructionsRequired=true&query=#{search.downcase.split(" ").join("+")}",
     headers:{
@@ -15,7 +15,12 @@ class ApiCaller
     }
       results = response.body["results"]
       if results.count > 0
-        get_recipe_by_id(results[rand(0...results.count)]["id"])
+        target_index = rand(0...results.count)
+        if Recipe.all.any? {|recipe| recipe.external_id == results[target_index]["id"]}
+          Recipe.find_by(external_id: results[target_index]["id"])
+        else
+          get_recipe_by_id(results[rand(0...results.count)]["id"]).body
+        end
       else
         nil
       end
