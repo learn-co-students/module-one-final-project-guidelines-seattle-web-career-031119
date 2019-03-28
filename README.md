@@ -13,6 +13,12 @@ The Totally Tubular 90's Trivia is a Ruby CLI game that challenges the player to
 1. Run `rake db:migrate` to create the proper databases
 1. Run `ruby bin/run.rb` and get yo 90's on
 
+### Object Model
+A Game has many Rounds, and many Players through Rounds
+A Player has many Rounds, and many Games through Rounds
+
+![Object Model](https://github.com/wardou2/module-one-final-project-guidelines-seattle-web-career-031119/blob/master/mod_one_proj_model_chart.jpg)
+
 ### Sources
 
 https://api.lyrics.ovh/v1/artist/title
