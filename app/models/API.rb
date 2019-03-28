@@ -10,8 +10,8 @@ class API
       url: url_string,
       headers: {"user-key": self.key},
       timeout: 10)
-      JSON.parse(response_string)
-    end
+    JSON.parse(response_string)
+  end
 
   def self.location_suggestions(location)
     # Takes the user's location query and returns the API's location suggestions.
@@ -29,4 +29,5 @@ class API
     end
     restaurants
   end
+
 end
