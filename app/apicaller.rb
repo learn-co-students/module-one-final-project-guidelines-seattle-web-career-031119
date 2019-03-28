@@ -7,8 +7,8 @@ class ApiCaller
     }
   end
 
-  def self.get_random_recipe_by_search(search, diet, user)
-    if diet == "none"
+  def self.get_random_recipe_by_search(search, diet_intolerance_syntax)
+    if diet_intolerance_syntax == ""
       response = Unirest.get "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?number=100&offset=0&instructionsRequired=true&query=#{search.downcase.split(" ").join("+")}",
     headers:{
       "X-RapidAPI-Key" => get_api_key
@@ -20,7 +20,7 @@ class ApiCaller
         nil
       end
     else
-        response = Unirest.get "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?diet=#{diet.downcase}&number=100&offset=0&instructionsRequired=true&query=#{search.downcase.split(" ").join("+")}",
+        response = Unirest.get "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?#{diet_intolerance_syntax}&number=100&offset=0&instructionsRequired=true&query=#{search.downcase.split(" ").join("+")}",
       headers:{
         "X-RapidAPI-Key" => get_api_key
       }
@@ -45,3 +45,8 @@ class ApiCaller
   end
 
 end
+
+
+# "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search?diet=vegetarian%2C+vegan&intolerances=dairy%2Cegg%2Cgluten&number=10&offset=0&type=main+course&query=burger",
+
+#intolerance.split

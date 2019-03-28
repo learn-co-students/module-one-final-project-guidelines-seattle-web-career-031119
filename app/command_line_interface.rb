@@ -110,6 +110,7 @@ def get_user_meal_choice(user)
   end
 end
 
+
 def get_user_meal_request
   puts "Please enter a meal name (e.g. \"spinach ravioli\" or \"sushi\") to get a recipe:"
   gets.chomp.downcase
@@ -119,6 +120,7 @@ def enter_to_continue
   puts "Press ENTER to return to the main menu."
   gets
 end
+
 
 def get_user_diet
   diets = ["vegan", "vegetarian", "none"]
@@ -143,21 +145,52 @@ def get_user_diet
   response
 end
 
-# def get_user_intolerances
-#   diets = ["dairy", "egg", "gluten", "peanut", "shellfish", "soy", "tree nut"]
-#   response = []
-#   table = []
-#   puts "Please list any food intolerances. Seperate multiple with a comma!"
-#   diets.each do |name|
-#     table << {
-#       Diet: name
-#     }
-#   end
-#   Formatador.display_table(table)
-#   puts separator_line
-#   response << gets.chomp.downcase
-#   response
-# end
+def convert_diet_to_syntax
+  response = get_user_diet
+  if response == "none"
+    response = ""
+  else
+    response = "diet=" + response
+  end
+  response
+end
+
+def get_user_intolerances
+  diets = ["dairy", "egg", "gluten", "peanut", "shellfish", "soy", "wheat", "none"]
+  response = ""
+  table = []
+  puts "Please list any food intolerances. Seperate multiple with a comma:"
+  diets.each do |name|
+    table << {
+      Diet: name
+    }
+  end
+  Formatador.display_table(table)
+  puts separator_line
+  response = gets.chomp.downcase
+  response
+end
+
+def convert_intolerance_to_syntax
+  response = get_user_intolerances
+  if response == "none"
+    response = ""
+  else
+    response = 'intolerances=' + response.split(/,[\s]*/).join("%2C+")
+  end
+  response
+end
+
+def combine_diet_intolerances
+  diet = convert_diet_to_syntax
+  intolerance = convert_intolerance_to_syntax
+  if intolerance == ""
+    response_syntax = diet
+  else
+    response_syntax = diet + "&" + intolerance
+  end
+  response_syntax
+end
 
 
 #TODO: This is a display and a request.  Move to two functions.
@@ -220,10 +253,9 @@ end
 #------------FINDING NEW MEAL ACTIONS-----------#
 def finding_action(user)
   find_new_meal_banner
-  user_diet = get_user_diet
-  # user_intolerances = get_user_intolerances
+  diet_intolerance = combine_diet_intolerances
   request = get_user_meal_request
-  recipe_data = ApiCaller.get_random_recipe_by_search(request, user_diet, user)
+  recipe_data = ApiCaller.get_random_recipe_by_search(request, diet_intolerance)
   if recipe_data.nil?
     systext("\n\nNo results found for #{request}.  Check your spelling and try again!")
     enter_to_continue
