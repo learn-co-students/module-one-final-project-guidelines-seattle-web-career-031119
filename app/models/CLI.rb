@@ -85,12 +85,12 @@ class CLI
   end
 
   def self.display_prompt(prompt)
-    prompt << "quit"
     puts "—" * 80
     puts "Would you like to:"
     prompt.each do |line|
       puts "\t#{line}:" + " "*(20-line.length) + "#{prompt_hash[line]}"
     end
+    puts "\tquit:" + " "*(16) + "#{prompt_hash["quit"]}"
     puts "—" * 80
   end
 
