@@ -3,15 +3,22 @@ class Game < ActiveRecord::Base
   has_many :players, through: :rounds
 
   def get_game_score
+    #collect all rounds with game_id == self.id and use inject to sum
     scores = Round.where(game_id: self.id).collect {|a_round| a_round[:score]}
     scores.inject(0) {|score, sum| sum + score}
   end
 
   def start_game(player)
+    #this is the method that starts a game
+    #it will instantiate a set number of rounds
+    #it also keeps track of song lyrics that have already been displayed so as not to reuse questions
     round_counter = 1
     songs_already_chosen =[]
 
     while round_counter <= 5
+      #lyric_i is a random index of a song lyric from the Lyrics table
+      #it will be used to call a lyric from the Lyric table by id
+      #then checks if song has already been used in previous round
       lyric_i = rand(1..Lyric.count)
       while songs_already_chosen.include?(lyric_i)
         lyric_i = rand(1..Lyric.count)
@@ -25,6 +32,7 @@ class Game < ActiveRecord::Base
 
     scores = Round.where(game_id: self.id).collect {|a_round| a_round[:score]}
     total_score = scores.inject(0) {|score, sum| sum + score}
+
     system "clear"
     puts
     puts Cli.header
@@ -36,6 +44,7 @@ class Game < ActiveRecord::Base
     puts
     puts Cli.fit_length("Your final score is: #{total_score}", ' ')
     puts
+
     case total_score
       when 100
         puts Cli.fit_length("Woo-hoo! You are a 90's master! Mad props!", ' ')
@@ -50,6 +59,7 @@ class Game < ActiveRecord::Base
       else
         puts Cli.fit_length("I don't want no scrubs, a scrub is... well, um, you.", ' ')
     end
+
     puts
     puts
     puts
