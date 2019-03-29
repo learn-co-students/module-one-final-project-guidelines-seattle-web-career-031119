@@ -35,6 +35,19 @@ class Api
     {artist: "Semisonic", title: "Closing Time"},
     {artist: "Sixpence None the Richer", title: "Kiss Me"},
     {artist: "House of Pain", title: "Jump Around"},
+    {artist: "Seal", title: "Kiss From a Rose"},
+    {artist: "Bell Biv Devoe", title: "Poison"},
+    {artist: "Pearl Jam", title: "Jeremy"},
+    {artist: "Red Hot Chili Peppers", title: "Under the Bridge"},
+    {artist: "Hanson", title: "MMMBop"},
+    {artist: "Soundgarden", title: "Black Hole Sun"},
+    {artist: "Third Eye Blind", title: "Semi-Charmed Life"},
+    {artist: "Spin Doctors", title: "Two Princes"},
+    {artist: "Hootie & the Blowfish", title: "Only Wanna Be With You"},
+    {artist: "2Pac", title: "California Love"},
+    {artist: "Sheryl Crow", title: "All I Wanna Do"},
+    {artist: "Right Said Fred", title: "I'm Too Sexy"},
+    {artist: "Blues Traveler", title: "Run-around"},
     {artist: "All 4 One", title: "I Swear"}
   ]
 
@@ -45,7 +58,6 @@ class Api
       title_exists = Lyric.find_by(song_title: song_info[:title])
       if !title_exists
         lyrics = RestClient.get(url)
-        # binding.pry
         lines = JSON.parse(lyrics)["lyrics"].split("\n").reject!(&:empty?)
         freq = lines.inject(Hash.new(0)) {|h,v| h[v] += 1; h}
         song_info[:most_lyric] = lines.max_by {|v| freq[v]}
@@ -75,6 +87,3 @@ class Api
   end
 
 end
-
-# binding.pry
-0
