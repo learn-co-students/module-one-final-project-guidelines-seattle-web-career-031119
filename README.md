@@ -25,14 +25,15 @@ Mealworm has many features that you can explore.  A basic user flow could be as 
 
 ##Running Mealworm
 
-1. Please obtain an API key from Spoonacular (https://rapidapi.com/spoonacular/api/recipe-food-nutrition).  This is free, but does require a credit card to be added for any overages that you may incur.  Copy this API key to add into the application.
+1. Obtain an API key from Spoonacular (https://rapidapi.com/spoonacular/api/recipe-food-nutrition).  This is free, but does require a credit card to be added for any overages that you may incur.
+
+2. Clone the github repository located at https://github.com/quinncidences/module-one-final-project-guidelines-seattle-web-career-031119
 
 There is a file in the application called 'sample.api_key.rb'. Duplicate this file.  Change the name of the duplicated file to be 'api_key.rb'.  Make sure the file name is exactly as described because this file, with your API key, will be hidden by git.
 
 Within the 'api_key.rb' file, replace '[YOUR API KEY HERE]' with your copied API key.  This will now allow the application to communicate with Spoonacular.
 
-
-2. Run 'bundle install' in your terminal to get the necessary gems installed.
+3. Run 'bundle install' in your terminal to get the necessary gems installed.
 
 
 ##Authors
@@ -41,7 +42,12 @@ This project was built by Rylan Bauermeister and Quinn Cox.
 
 
 ##Credits
-Thank you to Formatador, Paint, Artii, tty-table, and Pastel for making the application a bit more pretty and efficient.
+Thank you to the following gems, their creators, and all contributors:
+[Formatador](https://github.com/geemus/formatador), by geemus
+[Paint](https://github.com/janlelis/paint), by janlelis
+[Artii](https://github.com/miketierney/artii), by miketierney
+[tty-table](https://github.com/piotrmurach/tty-table), by piotrmurach
+[Pastel](https://github.com/piotrmurach/pastel), by piotrmurach
 
 ##Questions/Support
 Message either Rylan Bauermeister or Quinn Cox on Github.
