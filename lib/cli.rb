@@ -42,7 +42,6 @@ class Cli
   end
 
   def self.menu
-    player = Player.find_by(username: @username)
     menu_choice = nil
 
     until menu_choice == "6"
@@ -57,29 +56,23 @@ class Cli
         self.start_a_game(player)
       when "2"
         system "clear"
+        puts
+        self.header
+        puts
         if player.get_player_scores.empty?
-          puts
-          self.header
-          puts
           puts "You haven't played a game yet! Duh!"
         else
-          puts
-          self.header
-          puts
           puts "Your high score is: #{player.get_player_scores.max}"
         end
         puts
       when "3"
         system "clear"
+        puts
+        self.header
+        puts
         if player.get_player_scores.empty?
-          puts
-          self.header
-          puts
           puts "You haven't played a game yet! Duh!"
         else
-          puts
-          self.header
-          puts
           puts "Your average score is: #{player.get_players_avg_score}"
         end
         puts
@@ -114,7 +107,12 @@ class Cli
         self.line('*')
         puts
       else
-        puts "Please select a valid input:"
+        system "clear"
+        puts
+        self.header
+        puts
+        puts Paint["Please select a valid input:", :yellow]
+        puts
       end
     end
   end
@@ -168,6 +166,4 @@ class Cli
   def self.line(character)
     puts character * @game_width
   end
-
-
 end
