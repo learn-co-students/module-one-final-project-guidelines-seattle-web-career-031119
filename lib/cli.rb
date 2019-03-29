@@ -45,10 +45,10 @@ class Cli
     menu_choice = nil
 
     until menu_choice == "6"
-      self.display_menu_choices
+      player = Player.find_by(username: @username)
+      self.display_menu_choices(player)
       menu_choice = gets.chomp
       puts
-      player = Player.find_by(username: @username)
 
       case menu_choice
       when "1"
@@ -118,8 +118,8 @@ class Cli
     end
   end
 
-  def self.display_menu_choices
-    self.line('=')
+  def self.display_menu_choices(player)
+    puts self.fit_length(" Player: #{player[:username]} ", '=')
     puts
     puts Paint["Choose an option:", :inverse]
     puts
