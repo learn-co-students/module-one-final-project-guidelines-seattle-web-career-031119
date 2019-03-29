@@ -2,6 +2,8 @@ class Round < ActiveRecord::Base
   belongs_to :game
   belongs_to :player
 
+  #to understand rounds, start with method 'start_a_round' and work up
+
   def get_random_artist
     #gets an index for an artist that hasn't been chosen yet
     rand_index = @remaining_lyric_i.sample
