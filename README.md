@@ -7,7 +7,7 @@ NOW that's what I call 90's is a Ruby CLI game that challenges the player to gue
 ### Let's Git It
 
 1. Fork the repository
-1. In your terminal, clone the repository with `git clone <your fork's link here>`
+1. In your terminal, clone the repository with `git clone wardou2/module-one-final-project-now-thats-what-i-call-90s`
 1. In your terminal, navigate to the project directory
 1. Run `bundle install` to download the necessary gems
 1. Run `rake db:migrate` to create the proper databases
@@ -22,11 +22,11 @@ A Player has many Rounds, and many Games through Rounds
 
 ### Sources
 
-API: 
+API:
 
-https://api.lyrics.ovh/v1/artist/title
+https://lyricsovh.docs.apiary.io/#reference/0/lyrics-of-a-song/search
 
-Method to get most common line from song: 
+Method to get most common line from song:
 
 https://stackoverflow.com/questions/412169/ruby-how-to-find-item-in-array-which-has-the-most-occurrences
 
