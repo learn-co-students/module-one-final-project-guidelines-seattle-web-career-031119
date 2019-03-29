@@ -34,6 +34,7 @@ class Cli
     puts "Ready to play?"
     puts
     puts Paint["Enter your username:", :inverse]
+    puts "(username is case sensitive)"
     puts
     @username = gets.chomp
     system "clear"
