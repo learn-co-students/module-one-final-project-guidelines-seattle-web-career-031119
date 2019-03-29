@@ -58,5 +58,8 @@ Thank you to the following gems, their creators, and all contributors:
 ## Questions/Support
 Message either Rylan Bauermeister or Quinn Cox on Github.
 
+## Demo
+https://vimeo.com/327356466
+
 ## License
 MIT © Rylan Bauermeister and Quinn Cox
