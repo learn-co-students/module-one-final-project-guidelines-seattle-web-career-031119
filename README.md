@@ -11,7 +11,7 @@ NOW that's what I call 90's is a Ruby CLI game that challenges the player to gue
 1. In your terminal, navigate to the project directory
 1. Run `bundle install` to download the necessary gems
 1. Run `rake db:migrate` to create the proper databases
-1. Run `ruby bin/run.rb` and get yo 90's on
+1. Run `rake run` and get yo 90's on
 
 ### Object Model
 A Game has many Rounds, and many Players through Rounds
