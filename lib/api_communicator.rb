@@ -3,6 +3,8 @@ require_relative '../config/environment.rb'
 
 class Api
 
+# =========== SONG LIST FOR DATABASE (90s only!)===================
+
   @songs_array = [
     {artist: "Nirvana", title: "Smells Like Teen Spirit"},
     {artist: "Britney Spears", title: "...Baby One More Time"},
@@ -50,6 +52,15 @@ class Api
     {artist: "Blues Traveler", title: "Run-around"},
     {artist: "All 4 One", title: "I Swear"}
   ]
+
+# ============= PROGRESS BAR TO SHOW LOADING IN REAL TIME ====================
+# ============= It takes approx 1 second per song to load ====================
+
+# below method iterates through each song in song list and creates URL to get
+# song lyrics from. First checks to see if song is already in database, and
+# then collects each songs lyrics. It then parses through the lyrics to collect
+# the most common line in the song and stores it into the lyrics database.
+
 
   def self.add_most_lyric_and_title_to_song_info
     progressbar = ProgressBar.create(:title => "Loading Game", :starting_at => Lyric.count, :total => @songs_array.count)
