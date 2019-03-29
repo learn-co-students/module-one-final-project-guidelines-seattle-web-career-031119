@@ -6,6 +6,8 @@
 
 For optimal gameplay, your terminal window size should be at least 70 x 40. 
 
+![Gameplay example](https://media.giphy.com/media/TIPu5RRhg00VkurzXx/giphy.gif)
+
 ### Let's Git It
 
 1. Fork the repository
