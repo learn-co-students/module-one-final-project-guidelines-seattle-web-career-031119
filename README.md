@@ -2,7 +2,7 @@
 
 ### by Doug Ward and Joe Yang
 
-The Totally Tubular 90's Trivia is a Ruby CLI game that challenges the player to guess popular 90's artists based on a line of lyrics from one of their songs.
+NOW that's what I call 90's is a Ruby CLI game that challenges the player to guess popular 90's artists based on a line of lyrics from one of their songs.
 
 ### Let's Git It
 
