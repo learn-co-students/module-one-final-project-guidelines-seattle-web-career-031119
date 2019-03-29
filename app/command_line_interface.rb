@@ -181,7 +181,7 @@ end
 
 def convert_intolerance_to_syntax
   response = get_user_intolerances
-  if response == "none"
+  if response == ["none"]
     response = ""
   else
     response = 'intolerances=' + response.split(/[,\s]+/).join("%2C+")
