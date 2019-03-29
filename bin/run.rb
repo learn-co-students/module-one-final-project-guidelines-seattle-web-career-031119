@@ -1,5 +1,5 @@
 require_relative '../config/environment'
 
-
-
-puts "HELLO WORLD"
+Api.populate_lyrics_table
+system "clear"
+Cli.welcome_message
