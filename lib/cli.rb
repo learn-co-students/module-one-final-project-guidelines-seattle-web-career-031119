@@ -59,6 +59,7 @@ class Cli
         puts
         self.header
         puts
+        puts
         if player.get_player_scores.empty?
           puts "You haven't played a game yet! Duh!"
         else
@@ -69,6 +70,7 @@ class Cli
         system "clear"
         puts
         self.header
+        puts
         puts
         if player.get_player_scores.empty?
           puts "You haven't played a game yet! Duh!"
@@ -88,6 +90,7 @@ class Cli
         system "clear"
         puts
         self.header
+        puts
         puts
         self.get_username
         break
@@ -112,7 +115,8 @@ class Cli
         puts
         self.header
         puts
-        puts Paint["Please select a valid input:", :yellow]
+        puts
+        puts Paint["Please select a valid input:", :red]
         puts
       end
     end
