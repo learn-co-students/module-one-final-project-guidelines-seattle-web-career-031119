@@ -87,6 +87,6 @@ class Round < ActiveRecord::Base
       puts
       puts Paint[' * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *', :red]
     end
-    sleep(2)
+    sleep(3)
   end
 end
