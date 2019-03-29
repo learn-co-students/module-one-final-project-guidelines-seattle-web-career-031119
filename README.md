@@ -2,7 +2,7 @@
 
 #### by Doug Ward and Joe Yang
 
-"NOW that's what I call 90's" is a Ruby CLI game that challenges the player to guess popular 90's artists based on a line of lyrics from one of their most popular songs. The first time the game is run, it will take approximately 40 seconds to populate the database, but every subsequent running should load instantly, unless there are new songs added. It will take about 1 second to load each additional song.
+"NOW that's what I call 90's" is a Ruby CLI game that challenges the player to guess the 90's artist based on a line of lyrics from one of their most popular songs. The first time the game is run, it will take approximately 40 seconds to populate the database, but every subsequent running should load instantly, unless there are new songs added. It will take about 1 second to load each additional song.
 
 For optimal gameplay, your terminal window size should be at least 70 x 40. 
 
