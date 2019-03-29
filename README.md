@@ -29,9 +29,9 @@ Mealworm has many features that you can explore.  A basic user flow could be as 
 
 2. Clone the github repository located at https://github.com/quinncidences/module-one-final-project-guidelines-seattle-web-career-031119
 
-...There is a file in the application called 'sample.api_key.rb'. Duplicate this file.  Change the name of the duplicated file to be 'api_key.rb'.  Make sure the file name is exactly as described because this file, with your API key, will be hidden by git.
+  There is a file in the application called 'sample.api_key.rb'. Duplicate this file.  Change the name of the duplicated file to be 'api_key.rb'.  Make sure the file name is exactly as described because this file, with your API key, will be hidden by git.
 
-...Within the 'api_key.rb' file, replace '[YOUR API KEY HERE]' with your copied API key.  This will now allow the application to communicate with Spoonacular.
+  Within the 'api_key.rb' file, replace '[YOUR API KEY HERE]' with your copied API key.  This will now allow the application to communicate with Spoonacular.
 
 3. Run 'bundle install' in your terminal to get the necessary gems installed.
 
