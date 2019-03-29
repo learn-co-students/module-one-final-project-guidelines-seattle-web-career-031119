@@ -1,7 +1,6 @@
 require_relative '../config/environment.rb'
 
 class Cli
-  attr_accessor :username
 
   @game_width = 70
 
@@ -38,7 +37,7 @@ class Cli
     puts
     @username = gets.chomp
     system "clear"
-    Player.find_or_create_player(@username)
+    Player.find_or_create_by_username(@username)
     self.menu
   end
 
@@ -53,33 +52,37 @@ class Cli
 
       case menu_choice
       when "1"
+        #Start a game
         system "clear"
         self.start_a_game(player)
       when "2"
+        #See your high score
         system "clear"
         puts
         self.header
         puts
         puts
-        if player.get_player_scores.empty?
+        if player.get_scores.empty?
           puts "You haven't played a game yet! Duh!"
         else
-          puts "Your high score is: #{player.get_player_scores.max}"
+          puts "Your high score is: #{player.get_high_score}"
         end
         puts
       when "3"
+        #See your average score
         system "clear"
         puts
         self.header
         puts
         puts
-        if player.get_player_scores.empty?
+        if player.get_scores.empty?
           puts "You haven't played a game yet! Duh!"
         else
-          puts "Your average score is: #{player.get_players_avg_score}"
+          puts "Your average score is: #{player.get_avg_score}"
         end
         puts
       when "4"
+        #View Leaderboard (Highest Average Scores)
         system "clear"
         puts
         self.header
@@ -88,6 +91,7 @@ class Cli
         self.display_leaderboard
         puts
       when "5"
+        #Change player
         system "clear"
         puts
         self.header
@@ -96,6 +100,7 @@ class Cli
         self.get_username
         break
       when "6"
+        #Exit game
         system "clear"
         puts
         self.header
@@ -150,6 +155,8 @@ class Cli
   end
 
   def self.fit_length(string, character)
+    #adds 'character' (typically ' ') to beginning and end of string until it's a certain length
+    #centers the string based on our game width
     until string.length >= @game_width
       string.prepend(character)
       string << character
