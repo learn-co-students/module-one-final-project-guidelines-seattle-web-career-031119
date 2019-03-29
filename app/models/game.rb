@@ -29,7 +29,7 @@ class Game < ActiveRecord::Base
     puts
     puts Cli.header
     puts
-    puts "======================================================================"
+    Cli.line("+")
     puts
     puts
     puts
@@ -52,7 +52,7 @@ class Game < ActiveRecord::Base
     puts
     puts
     puts
-    puts "======================================================================"
+    Cli.line("+")
     puts
     puts
   end

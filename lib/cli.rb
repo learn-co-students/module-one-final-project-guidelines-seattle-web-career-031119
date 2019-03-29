@@ -96,6 +96,7 @@ class Cli
         puts
         self.header
         puts
+        puts
         self.line('*')
         puts
         puts
@@ -160,7 +161,7 @@ class Cli
   end
 
   def self.header
-    puts Paint%["============================ I %{heart} THE 90's ============================", :cyan, :bright, heart: ["<3", :magenta]]
+    puts Paint%["==================== %{title} ====================", :cyan, :bright, title: ["NOW THAT'S WHAT I CALL 90's!", :magenta]]
   end
 
   def self.line(character)
