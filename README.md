@@ -9,14 +9,14 @@ For optimal gameplay, your terminal window size should be at least 70 x 40.
 ### Let's Git It
 
 1. Fork the repository
-1. In your terminal, clone the repository by typing
+2. In your terminal, clone the repository by typing
 ```
 git clone wardou2/module-one-final-project-now-thats-what-i-call-90s
 ```
-1. In your terminal, navigate to the project directory
-1. Run `bundle install` to download the necessary gems
-1. Run `rake db:migrate` to create the proper tables
-1. Run `rake run` to get yo 90's on!
+3. In your terminal, navigate to the project directory
+4. Run `bundle install` to download the necessary gems
+5. Run `rake db:migrate` to create the proper tables
+6. Run `rake run` to get yo 90's on!
 
 ### Object Model
 A Game has many Rounds, and many Players through Rounds
@@ -35,7 +35,7 @@ We used the [Lyrics.ovh API](https://api.lyrics.ovh/v1/artist/title) to gather t
 
 Gems used: [Paint](https://github.com/janlelis/paint), [Terminal Table](https://github.com/tj/terminal-table), [Ruby Progressbar](https://github.com/jfelchner/ruby-progressbar)
 
-Shoutout to Rylan for "System 'clear'"
+Shoutout to Rylan for "System clear"
 
 
 ---
