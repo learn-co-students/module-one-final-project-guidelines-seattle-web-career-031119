@@ -1,4 +1,4 @@
-## The Totally Tubular 90's Trivia
+## NOW that's what I call 90's!
 
 ### by Doug Ward and Joe Yang
 
