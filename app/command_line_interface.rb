@@ -107,7 +107,7 @@ end
 
 
 def get_user_meal_request
-  puts "Please enter a meal name (e.g. \"spinach ravioli\" or \"sushi\") to get a recipe:"
+  puts "Please enter a meal name (e.g. \"spinach ravioli\" or \"hummus\") to get a recipe:"
   gets.chomp.downcase
 end
 
