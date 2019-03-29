@@ -13,7 +13,7 @@ For optimal gameplay, your terminal window size should be at least 70 x 40.
 1. Fork the repository
 2. In your terminal, clone the repository by typing
 ```
-git clone wardou2/module-one-final-project-now-thats-what-i-call-90s
+git clone <your-git-username>/module-one-final-project-now-thats-what-i-call-90s
 ```
 3. In your terminal, navigate to the project directory
 4. Run `bundle install` to download the necessary gems
@@ -27,9 +27,16 @@ A Player has many Rounds, and many Games through Rounds
 
 ![Object Model](https://github.com/wardou2/module-one-final-project-guidelines-seattle-web-career-031119/blob/master/mod_one_proj_model_chart.jpg)
 
+
 ### Sources
 
 We used the [Lyrics.ovh API](https://api.lyrics.ovh/v1/artist/title) to gather the lyrics to populate our database.
+
+
+### Comments/Suggestions
+
+If you have any questions or comments, please let us know @wardou2 or @jyang81. If you have any ideas to make our game better, feel free to fork the repo and add new features!
+
 
 ### Credits
 
