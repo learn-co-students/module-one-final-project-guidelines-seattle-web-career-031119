@@ -1,0 +1,38 @@
+def dummy
+  {
+    "vegetarian":true,
+    "vegan":false,
+    "glutenFree":false,
+    "dairyFree":false,
+    "veryHealthy":false,
+    "cheap":false,
+    "veryPopular":true,
+    "sustainable":false,
+    "weightWatcherSmartPoints":20,
+    "gaps":"no",
+    "lowFodmap":false,
+    "ketogenic":false,
+    "whole30":false,
+    "preparationMinutes":25,
+    "cookingMinutes":10,
+    "sourceUrl":"http://www.amuse-your-bouche.com/creamy-garlic-spaghetti-roasted-portobellos/",
+    "spoonacularSourceUrl":"https://spoonacular.com/creamy-garlic-spaghetti-with-roasted-portobellos-578572",
+    "aggregateLikes":1649,
+    "spoonacularScore":95,
+    "healthScore":31,
+    "creditText":"Amuse Your Bouche",
+    "sourceName":"Amuse Your Bouche",
+    "pricePerServing":332.54,
+    "id":578572,
+    "title":"Creamy garlic spaghetti with roasted portobellos",
+    "readyInMinutes":35,
+    "servings":2,
+    "image":"https://spoonacular.com/recipeImages/578572-556x370.jpg",
+    "imageType":"jpg",
+    "cuisines":[],
+    "occasions":[],
+    "instructions":"Heat the oven to 190C (Gas Mark 5 / 375F). Place the mushrooms in a baking dish open side down, and drizzle with a small amount of oil. Season with salt and pepper, and roast for around 25 minutes, until soft and juicy.When the mushrooms have been in the oven for around 10 minutes, begin to make the creamy garlic spaghetti. Boil the pasta until al dente, around 10 minutes.While the pasta is boiling, melt the butter in a large frying pan, and add the garlic. Cook over a fairly low heat for a few minutes, until fragrant. Then add the cream cheese and milk, and cook gently, stirring regularly, until the cheese has melted to produce a smooth sauce. Add the parmesan and season with salt and plenty of black pepper.When the pasta is ready, drain it, retaining a few tablespoons of the liquid. Add the pasta to the sauce along with the retained liquid - the exact amount depends on your desired consistency, but around 6tbsp will probably be good. Gently mix the pasta into the sauce, adding the chopped chives (I find it easiest to use tongs to toss pasta in sauce).When the mushrooms are cooked, drain any liquid they have released into the pasta, and chop the mushrooms into slices. Serve on top of the pasta with more chives if desired.",
+
+    "creditsText":"Amuse Your Bouche"
+  }
+end
